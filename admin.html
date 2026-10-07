@@ -55,6 +55,13 @@
       </div>
     </div>
 
+    <div id="tabs" class="flex flex-wrap gap-2 mb-5">
+      <button data-filter="pending" class="tab text-sm font-bold rounded-xl px-4 py-2 border border-tealBrand/30 transition-colors">⏳ Սպասման մեջ <span class="n"></span></button>
+      <button data-filter="accepted" class="tab text-sm font-bold rounded-xl px-4 py-2 border border-tealBrand/30 transition-colors">✅ Ընդունված <span class="n"></span></button>
+      <button data-filter="archived" class="tab text-sm font-bold rounded-xl px-4 py-2 border border-tealBrand/30 transition-colors">🗄 Արխիվ <span class="n"></span></button>
+      <button data-filter="all" class="tab text-sm font-bold rounded-xl px-4 py-2 border border-tealBrand/30 transition-colors">Բոլորը <span class="n"></span></button>
+    </div>
+
     <div id="status" class="text-center text-sm text-gray-600 py-10"></div>
     <div id="list" class="grid grid-cols-1 lg:grid-cols-2 gap-4"></div>
   </div>
@@ -69,7 +76,7 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-    import { getFirestore, collection, query, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { getFirestore, collection, query, orderBy, getDocs, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
     const app = initializeApp({
       apiKey: "AIzaSyCd9paTQvD30NA6dBlq7K3nVszAkUgn78s",
@@ -85,6 +92,17 @@
     const CLOUD_NAME = 'mrqeiihp';
     const $ = (id) => document.getElementById(id);
     let registrations = [];
+    let filter = 'pending';
+    const STATUS = {
+      pending:  { label: 'Սպասման մեջ', badge: 'bg-yellow-100 text-yellow-800', btn: 'Սպասման մեջ', icon: 'fa-hourglass-half' },
+      accepted: { label: 'Ընդունված',   badge: 'bg-green-100 text-green-700',   btn: 'Ընդունել',    icon: 'fa-check' },
+      archived: { label: 'Արխիվ',       badge: 'bg-gray-200 text-gray-600',     btn: 'Արխիվ',       icon: 'fa-box-archive' }
+    };
+    const btnCls = {
+      pending: 'bg-yellow-50 text-yellow-800 border-yellow-300 hover:bg-yellow-100',
+      accepted: 'bg-green-50 text-green-700 border-green-300 hover:bg-green-100',
+      archived: 'bg-gray-100 text-gray-600 border-gray-300 hover:bg-gray-200'
+    };
 
     // ====== Auth ======
     onAuthStateChanged(auth, (user) => {
@@ -124,7 +142,7 @@
         const snap = await getDocs(query(collection(db, 'registrations'), orderBy('createdAt', 'desc')));
         registrations = snap.docs.map((d) => {
           const x = d.data();
-          return { ...x, date: x.createdAt && x.createdAt.toDate ? x.createdAt.toDate() : null };
+          return { ...x, id: d.id, status: x.status || 'pending', date: x.createdAt && x.createdAt.toDate ? x.createdAt.toDate() : null };
         });
         $('status').textContent = registrations.length ? '' : 'Գրանցումներ դեռ չկան։';
         render();
@@ -138,8 +156,19 @@
     function render() {
       const q = $('search').value.trim().toLowerCase();
       const rows = registrations.filter((r) =>
-        !q || [r.firstName, r.lastName, r.phone, r.tgUsername, r.tgPhone, r.plan].join(' ').toLowerCase().includes(q));
-      $('count').textContent = `Ընդամենը՝ ${registrations.length}` + (q ? ` · Գտնվել է՝ ${rows.length}` : '');
+        (filter === 'all' || r.status === filter) &&
+        (!q || [r.firstName, r.lastName, r.phone, r.tgUsername, r.tgPhone, r.plan].join(' ').toLowerCase().includes(q)));
+      $('count').textContent = `Ընդամենը՝ ${registrations.length} · Ցուցադրված՝ ${rows.length}`;
+      $('status').textContent = rows.length ? '' : (registrations.length ? 'Այս բաժնում գրանցումներ չկան։' : 'Գրանցումներ դեռ չկան։');
+      document.querySelectorAll('#tabs [data-filter]').forEach((b) => {
+        const k = b.dataset.filter;
+        b.querySelector('.n').textContent = '(' + (k === 'all' ? registrations.length : registrations.filter((r) => r.status === k).length) + ')';
+        const on = k === filter;
+        b.classList.toggle('bg-tealBrand', on);
+        b.classList.toggle('text-white', on);
+        b.classList.toggle('bg-white', !on);
+        b.classList.toggle('text-tealBrand', !on);
+      });
       $('list').innerHTML = rows.map((r) => {
         const hasImg = okUrl(r.receiptUrl);
         const tg = String(r.tgUsername || '').replace(/^@/, '');
@@ -151,12 +180,17 @@
               : `<div class="w-28 h-28 rounded-xl bg-gray-100 flex items-center justify-center text-gray-400 text-xs">Նկար չկա</div>`}
           </div>
           <div class="min-w-0 flex-1 text-sm">
-            <p class="text-[11px] font-semibold text-orangeBrand mb-1"><i class="fa-regular fa-calendar mr-1"></i>${esc(fmtDate(r.date))}</p>
+            <p class="text-[11px] font-semibold text-orangeBrand mb-1"><i class="fa-regular fa-calendar mr-1"></i>${esc(fmtDate(r.date))} <span class="ml-1 rounded-md px-2 py-0.5 text-[10px] ${(STATUS[r.status] || STATUS.pending).badge}">${(STATUS[r.status] || STATUS.pending).label}</span></p>
             <h3 class="text-base font-extrabold text-tealBrand truncate">${esc(r.firstName)} ${esc(r.lastName)}</h3>
             <p class="mt-1 inline-block bg-tealBg text-tealBrand text-xs font-semibold rounded-md px-2 py-0.5">${esc(r.plan)}</p>
             <p class="mt-2"><i class="fa-solid fa-phone text-tealBrand/60 w-4"></i> <a class="hover:underline" href="tel:${esc(r.phone)}">${esc(r.phone)}</a></p>
             <p><i class="fa-brands fa-telegram text-tealBrand/60 w-4"></i> ${tg ? `<a class="hover:underline" target="_blank" rel="noopener" href="https://t.me/${encodeURIComponent(tg)}">@${esc(tg)}</a>` : '—'}</p>
             <p><i class="fa-solid fa-mobile-screen text-tealBrand/60 w-4"></i> ${esc(r.tgPhone)}</p>
+            <div class="flex flex-wrap gap-2 mt-3">
+              ${['accepted', 'pending', 'archived'].filter((s) => s !== r.status).map((s) =>
+                `<button data-act="set" data-status="${s}" data-id="${esc(r.id)}" class="text-xs font-bold border rounded-lg px-2.5 py-1.5 transition-colors ${btnCls[s]}"><i class="fa-solid ${STATUS[s].icon} mr-1"></i>${STATUS[s].btn}</button>`).join('')}
+              <button data-act="del" data-id="${esc(r.id)}" class="text-xs font-bold border rounded-lg px-2.5 py-1.5 transition-colors bg-red-50 text-red-600 border-red-300 hover:bg-red-100"><i class="fa-solid fa-trash-can mr-1"></i>Հեռացնել</button>
+            </div>
           </div>
         </div>`;
       }).join('');
@@ -164,6 +198,36 @@
 
     $('search').addEventListener('input', render);
     $('refresh').addEventListener('click', load);
+
+    $('tabs').addEventListener('click', (e) => {
+      const b = e.target.closest('[data-filter]');
+      if (b) { filter = b.dataset.filter; render(); }
+    });
+
+    // Status change / delete
+    $('list').addEventListener('click', async (e) => {
+      const btn = e.target.closest('button[data-act]');
+      if (!btn) return;
+      const id = btn.dataset.id;
+      const r = registrations.find((x) => x.id === id);
+      if (!r) return;
+      if (btn.dataset.act === 'del' && !confirm('Հեռացնե՞լ այս գրանցումը։ Գործողությունը հնարավոր չէ չեղարկել։')) return;
+      btn.disabled = true;
+      try {
+        if (btn.dataset.act === 'del') {
+          await deleteDoc(doc(db, 'registrations', id));
+          registrations = registrations.filter((x) => x.id !== id);
+        } else {
+          await updateDoc(doc(db, 'registrations', id), { status: btn.dataset.status });
+          r.status = btn.dataset.status;
+        }
+        render();
+      } catch (err) {
+        console.error(err);
+        alert('Չհաջողվեց կատարել գործողությունը։ Ստուգեք կապը և Firestore-ի կանոնները։');
+        btn.disabled = false;
+      }
+    });
 
     // ====== Lightbox ======
     const lb = $('lightbox');
