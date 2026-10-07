@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#124E48">
+  <title>ՖԼԵՔՍԻԶ | Ադմին</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        colors: { tealBrand: '#124E48', tealHover: '#0b3834', tealBg: '#f2f8f7', orangeBrand: '#E35325', orangeHover: '#c84117' },
+        fontFamily: { sans: ['Montserrat', 'sans-serif'] }
+      } }
+    }
+  </script>
+  <style>
+    body { font-family: 'Montserrat', sans-serif; background: #f2f8f7; }
+    .card-shadow { box-shadow: 0 10px 25px -5px rgba(18,78,72,.12), 0 4px 10px -4px rgba(0,0,0,.05); }
+    .thumb { cursor: zoom-in; transition: transform .2s; }
+    .thumb:hover { transform: scale(1.03); }
+  </style>
+</head>
+<body class="text-gray-800 min-h-screen">
+
+  <!-- Login -->
+  <div id="gate" class="min-h-screen flex items-center justify-center p-4">
+    <form id="gateForm" class="bg-white rounded-2xl p-6 sm:p-8 w-full max-w-sm card-shadow text-center">
+      <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-tealBg text-tealBrand flex items-center justify-center text-2xl"><i class="fa-solid fa-lock"></i></div>
+      <h1 class="text-xl font-extrabold text-tealBrand mb-4">Ադմին էջ</h1>
+      <input id="email" type="email" autocomplete="username" placeholder="Էլ. հասցե" required
+        class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-tealBrand focus:outline-none mb-2 text-base">
+      <input id="pw" type="password" autocomplete="current-password" placeholder="Գաղտնաբառ" required
+        class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-tealBrand focus:outline-none mb-2 text-base">
+      <p id="pwErr" class="text-red-500 text-xs mb-2 hidden">Սխալ էլ. հասցե կամ գաղտնաբառ</p>
+      <button class="w-full bg-tealBrand hover:bg-tealHover text-white font-bold py-3 rounded-xl transition-colors">Մուտք</button>
+    </form>
+  </div>
+
+  <!-- Admin -->
+  <div id="app" class="hidden max-w-6xl mx-auto px-4 py-6">
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+      <div>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-tealBrand">Գրանցումներ</h1>
+        <p id="count" class="text-sm text-tealBrand/70 mt-1"></p>
+      </div>
+      <div class="flex gap-2 w-full sm:w-auto">
+        <input id="search" type="search" placeholder="Որոնել՝ անուն, հեռ., Telegram..."
+          class="flex-1 sm:w-72 px-4 py-2.5 rounded-xl border border-gray-300 focus:border-tealBrand focus:outline-none text-sm bg-white">
+        <button id="refresh" class="bg-orangeBrand hover:bg-orangeHover text-white font-bold px-4 rounded-xl text-sm" aria-label="Թարմացնել"><i class="fa-solid fa-rotate"></i></button>
+        <button id="logout" class="bg-tealBrand hover:bg-tealHover text-white font-bold px-4 rounded-xl text-sm" aria-label="Դուրս գալ"><i class="fa-solid fa-right-from-bracket"></i></button>
+      </div>
+    </div>
+
+    <div id="status" class="text-center text-sm text-gray-600 py-10"></div>
+    <div id="list" class="grid grid-cols-1 lg:grid-cols-2 gap-4"></div>
+  </div>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="fixed inset-0 bg-black/90 z-50 hidden flex-col items-center justify-center p-3">
+    <button id="lbClose" class="absolute top-3 right-4 text-white text-3xl leading-none" aria-label="Փակել">&times;</button>
+    <img id="lbImg" src="" alt="Վճարման կտրոն" class="max-w-full max-h-[88vh] object-contain rounded-lg">
+    <a id="lbOpen" href="#" target="_blank" rel="noopener" class="mt-3 text-white/80 text-sm underline">Բացել նոր էջում</a>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getFirestore, collection, query, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const app = initializeApp({
+      apiKey: "AIzaSyCd9paTQvD30NA6dBlq7K3nVszAkUgn78s",
+      authDomain: "flexiz-5ced2.firebaseapp.com",
+      projectId: "flexiz-5ced2",
+      storageBucket: "flexiz-5ced2.firebasestorage.app",
+      messagingSenderId: "538026746412",
+      appId: "1:538026746412:web:75735f0753d5eac1db2789"
+    });
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const CLOUD_NAME = 'mrqeiihp';
+    const $ = (id) => document.getElementById(id);
+    let registrations = [];
+
+    // ====== Auth ======
+    onAuthStateChanged(auth, (user) => {
+      $('gate').classList.toggle('hidden', !!user);
+      $('app').classList.toggle('hidden', !user);
+      if (user) load();
+    });
+    $('gateForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      $('pwErr').classList.add('hidden');
+      try {
+        await signInWithEmailAndPassword(auth, $('email').value.trim(), $('pw').value);
+      } catch (err) {
+        $('pwErr').classList.remove('hidden');
+      }
+    });
+    $('logout').addEventListener('click', () => signOut(auth));
+
+    // ====== Helpers ======
+    const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const pad = (n) => String(n).padStart(2, '0');
+    function fmtDate(d) {
+      if (!d || isNaN(d)) return '—';
+      return `${pad(d.getDate())}.${pad(d.getMonth() + 1)}.${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    }
+    const okUrl = (u) => typeof u === 'string' && u.startsWith(`https://res.cloudinary.com/${CLOUD_NAME}/`);
+    const isPdf = (u) => /\.pdf($|\?)/i.test(u);
+    const thumbUrl = (u) => u.replace('/upload/', `/upload/${isPdf(u) ? 'pg_1,f_jpg,w_240' : 'c_fill,w_240,h_240,q_auto,f_auto'}/`);
+    const fullUrl = (u) => u.replace('/upload/', `/upload/${isPdf(u) ? 'pg_1,f_jpg' : 'q_auto,f_auto'}/`);
+
+    // ====== Load from Firestore ======
+    async function load() {
+      $('status').textContent = 'Բեռնվում է...';
+      $('list').innerHTML = '';
+      $('count').textContent = '';
+      try {
+        const snap = await getDocs(query(collection(db, 'registrations'), orderBy('createdAt', 'desc')));
+        registrations = snap.docs.map((d) => {
+          const x = d.data();
+          return { ...x, date: x.createdAt && x.createdAt.toDate ? x.createdAt.toDate() : null };
+        });
+        $('status').textContent = registrations.length ? '' : 'Գրանցումներ դեռ չկան։';
+        render();
+      } catch (err) {
+        console.error(err);
+        $('status').textContent = 'Չհաջողվեց բեռնել տվյալները։ Ստուգեք Firestore-ի կանոնները և որ մուտք եք գործել ադմինի հասցեով։';
+      }
+    }
+
+    // ====== Render ======
+    function render() {
+      const q = $('search').value.trim().toLowerCase();
+      const rows = registrations.filter((r) =>
+        !q || [r.firstName, r.lastName, r.phone, r.tgUsername, r.tgPhone, r.plan].join(' ').toLowerCase().includes(q));
+      $('count').textContent = `Ընդամենը՝ ${registrations.length}` + (q ? ` · Գտնվել է՝ ${rows.length}` : '');
+      $('list').innerHTML = rows.map((r) => {
+        const hasImg = okUrl(r.receiptUrl);
+        const tg = String(r.tgUsername || '').replace(/^@/, '');
+        return `
+        <div class="bg-white rounded-2xl p-4 card-shadow flex gap-4">
+          <div class="shrink-0">
+            ${hasImg
+              ? `<img src="${esc(thumbUrl(r.receiptUrl))}" data-full="${esc(fullUrl(r.receiptUrl))}" data-orig="${esc(r.receiptUrl)}" alt="Կտրոն" loading="lazy" class="thumb w-28 h-28 sm:w-32 sm:h-32 object-cover rounded-xl border border-gray-200">`
+              : `<div class="w-28 h-28 rounded-xl bg-gray-100 flex items-center justify-center text-gray-400 text-xs">Նկար չկա</div>`}
+          </div>
+          <div class="min-w-0 flex-1 text-sm">
+            <p class="text-[11px] font-semibold text-orangeBrand mb-1"><i class="fa-regular fa-calendar mr-1"></i>${esc(fmtDate(r.date))}</p>
+            <h3 class="text-base font-extrabold text-tealBrand truncate">${esc(r.firstName)} ${esc(r.lastName)}</h3>
+            <p class="mt-1 inline-block bg-tealBg text-tealBrand text-xs font-semibold rounded-md px-2 py-0.5">${esc(r.plan)}</p>
+            <p class="mt-2"><i class="fa-solid fa-phone text-tealBrand/60 w-4"></i> <a class="hover:underline" href="tel:${esc(r.phone)}">${esc(r.phone)}</a></p>
+            <p><i class="fa-brands fa-telegram text-tealBrand/60 w-4"></i> ${tg ? `<a class="hover:underline" target="_blank" rel="noopener" href="https://t.me/${encodeURIComponent(tg)}">@${esc(tg)}</a>` : '—'}</p>
+            <p><i class="fa-solid fa-mobile-screen text-tealBrand/60 w-4"></i> ${esc(r.tgPhone)}</p>
+          </div>
+        </div>`;
+      }).join('');
+    }
+
+    $('search').addEventListener('input', render);
+    $('refresh').addEventListener('click', load);
+
+    // ====== Lightbox ======
+    const lb = $('lightbox');
+    function openLb(src, orig) {
+      $('lbImg').src = src;
+      $('lbOpen').href = orig;
+      lb.classList.remove('hidden');
+      lb.classList.add('flex');
+    }
+    function closeLb() {
+      lb.classList.add('hidden');
+      lb.classList.remove('flex');
+      $('lbImg').src = '';
+    }
+    $('list').addEventListener('click', (e) => {
+      const img = e.target.closest('img.thumb');
+      if (img) openLb(img.dataset.full, img.dataset.orig);
+    });
+    lb.addEventListener('click', (e) => { if (e.target !== $('lbOpen')) closeLb(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLb(); });
+  </script>
+</body>
+</html>

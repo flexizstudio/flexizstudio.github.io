@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#124E48">
+  <title>ՖԼԵՔՍԻԶ ՕՆԼԱՅՆ ՍՏՈՒԴԻԱ | Գրանցում</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Fonts & FontAwesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            tealBrand: '#124E48',
+            tealHover: '#0b3834',
+            tealLight: '#1b645d',
+            tealBg: '#f2f8f7',
+            orangeBrand: '#E35325',
+            orangeHover: '#c84117',
+          },
+          fontFamily: {
+            sans: ['Montserrat', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #f2f8f7;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    html { -webkit-text-size-adjust: 100%; }
+    img, svg { max-width: 100%; }
+    body { min-height: 100dvh; padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); padding-bottom: env(safe-area-inset-bottom); }
+
+    /* Comfortable touch targets */
+    .plan-btn { min-height: 40px; min-width: 92px; white-space: nowrap; }
+    select.custom-input { appearance: none; -webkit-appearance: none; padding-right: 2.5rem; text-overflow: ellipsis;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23124E48' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 1rem center; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    /* Small phones */
+    @media (max-width: 380px) {
+      .plan-btn { min-width: 80px; font-size: 12px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto !important; }
+      * { transition: none !important; }
+    }
+
+    /* Custom Input Focus Effect */
+    .custom-input {
+      transition: all 0.25s ease;
+      background-color: #ffffff;
+      border: 1.5px solid #d1dcdb;
+    }
+    
+    .custom-input:focus {
+      border-color: #124E48;
+      box-shadow: 0 0 0 4px rgba(18, 78, 72, 0.12);
+      outline: none;
+    }
+
+    /* Spine SVG background pattern placement */
+    .spine-bg-left-top {
+      position: absolute;
+      top: -20px;
+      left: -30px;
+      width: 140px;
+      opacity: 0.85;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .spine-bg-right-top {
+      position: absolute;
+      top: -10px;
+      right: -20px;
+      width: 130px;
+      opacity: 0.25;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .spine-bg-left-bottom {
+      position: absolute;
+      bottom: -10px;
+      left: -20px;
+      width: 130px;
+      opacity: 0.85;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .spine-bg-right-bottom {
+      position: absolute;
+      bottom: -10px;
+      right: -20px;
+      width: 130px;
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Spine Texture Pattern on Button Ends */
+    .btn-spine-accent {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-spine-accent::before, .btn-spine-accent::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 22px;
+      background-image: radial-gradient(#ffffff 35%, transparent 36%);
+      background-size: 8px 8px;
+      background-repeat: repeat-y;
+      opacity: 0.55;
+    }
+
+    .btn-spine-accent::before {
+      left: 6px;
+    }
+
+    .btn-spine-accent::after {
+      right: 6px;
+    }
+
+    /* Drag and Drop Highlight */
+    .drag-active {
+      border-color: #E35325 !important;
+      background-color: rgba(227, 83, 37, 0.05) !important;
+    }
+
+    /* Custom Card Shadow */
+    .form-card-shadow {
+      box-shadow: 0 15px 35px -5px rgba(18, 78, 72, 0.12), 0 5px 15px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Payment card */
+    .pay-card {
+      background: linear-gradient(135deg, #124E48 0%, #1b645d 100%);
+    }
+    .copy-btn.copied {
+      background-color: #16a34a !important;
+    }
+  </style>
+</head>
+
+<body class="relative flex flex-col justify-between min-h-screen text-gray-800">
+
+  <!-- Background Decorative Spine Left Top (Orange) -->
+  <svg class="spine-bg-left-top hidden sm:block" viewBox="0 0 100 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="20" cy="20" rx="18" ry="6" fill="#E35325" transform="rotate(-15 20 20)"/>
+    <ellipse cx="28" cy="40" rx="19" ry="6.5" fill="#E35325" transform="rotate(-10 28 40)"/>
+    <ellipse cx="34" cy="60" rx="20" ry="7" fill="#E35325" transform="rotate(-5 34 60)"/>
+    <ellipse cx="38" cy="81" rx="20" ry="7" fill="#E35325" transform="rotate(0 38 81)"/>
+    <ellipse cx="39" cy="102" rx="20" ry="7" fill="#E35325" transform="rotate(5 39 102)"/>
+    <ellipse cx="36" cy="123" rx="19" ry="6.5" fill="#E35325" transform="rotate(10 36 123)"/>
+    <ellipse cx="30" cy="143" rx="18" ry="6" fill="#E35325" transform="rotate(15 30 143)"/>
+    <ellipse cx="22" cy="162" rx="16" ry="5.5" fill="#E35325" transform="rotate(20 22 162)"/>
+    <ellipse cx="12" cy="180" rx="14" ry="5" fill="#E35325" transform="rotate(25 12 180)"/>
+  </svg>
+
+  <!-- Background Decorative Spine Right Top (Teal Faded) -->
+  <svg class="spine-bg-right-top hidden sm:block" viewBox="0 0 100 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="80" cy="20" rx="18" ry="6" fill="#124E48" transform="rotate(15 80 20)"/>
+    <ellipse cx="72" cy="40" rx="19" ry="6.5" fill="#124E48" transform="rotate(10 72 40)"/>
+    <ellipse cx="66" cy="60" rx="20" ry="7" fill="#124E48" transform="rotate(5 66 60)"/>
+    <ellipse cx="62" cy="81" rx="20" ry="7" fill="#124E48" transform="rotate(0 62 81)"/>
+    <ellipse cx="61" cy="102" rx="20" ry="7" fill="#124E48" transform="rotate(-5 61 102)"/>
+    <ellipse cx="64" cy="123" rx="19" ry="6.5" fill="#124E48" transform="rotate(-10 64 123)"/>
+    <ellipse cx="70" cy="143" rx="18" ry="6" fill="#124E48" transform="rotate(-15 70 143)"/>
+    <ellipse cx="78" cy="162" rx="16" ry="5.5" fill="#124E48" transform="rotate(-20 78 162)"/>
+  </svg>
+
+  <!-- Background Decorative Spine Left Bottom (Orange) -->
+  <svg class="spine-bg-left-bottom hidden sm:block" viewBox="0 0 100 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="12" cy="120" rx="14" ry="5" fill="#E35325" transform="rotate(-25 12 120)"/>
+    <ellipse cx="22" cy="138" rx="16" ry="5.5" fill="#E35325" transform="rotate(-20 22 138)"/>
+    <ellipse cx="30" cy="157" rx="18" ry="6" fill="#E35325" transform="rotate(-15 30 157)"/>
+    <ellipse cx="36" cy="177" rx="19" ry="6.5" fill="#E35325" transform="rotate(-10 36 177)"/>
+    <ellipse cx="39" cy="198" rx="20" ry="7" fill="#E35325" transform="rotate(-5 39 198)"/>
+    <ellipse cx="38" cy="219" rx="20" ry="7" fill="#E35325" transform="rotate(0 38 219)"/>
+    <ellipse cx="34" cy="240" rx="20" ry="7" fill="#E35325" transform="rotate(5 34 240)"/>
+    <ellipse cx="28" cy="260" rx="19" ry="6.5" fill="#E35325" transform="rotate(10 28 260)"/>
+    <ellipse cx="20" cy="280" rx="18" ry="6" fill="#E35325" transform="rotate(15 20 280)"/>
+  </svg>
+
+  <!-- Background Decorative Spine Right Bottom (Teal Faded) -->
+  <svg class="spine-bg-right-bottom hidden sm:block" viewBox="0 0 100 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="78" cy="138" rx="16" ry="5.5" fill="#124E48" transform="rotate(20 78 138)"/>
+    <ellipse cx="70" cy="157" rx="18" ry="6" fill="#124E48" transform="rotate(15 70 157)"/>
+    <ellipse cx="64" cy="177" rx="19" ry="6.5" fill="#124E48" transform="rotate(10 64 177)"/>
+    <ellipse cx="61" cy="198" rx="20" ry="7" fill="#124E48" transform="rotate(5 61 198)"/>
+    <ellipse cx="62" cy="219" rx="20" ry="7" fill="#124E48" transform="rotate(0 62 219)"/>
+    <ellipse cx="66" cy="240" rx="20" ry="7" fill="#124E48" transform="rotate(-5 66 240)"/>
+    <ellipse cx="72" cy="260" rx="19" ry="6.5" fill="#124E48" transform="rotate(-10 72 260)"/>
+  </svg>
+
+  <!-- Top Header with Logo and Navigation Menu -->
+  <header class="w-full pt-5 sm:pt-8 pb-3 sm:pb-4 px-4 relative z-10">
+    <div class="max-w-4xl mx-auto flex flex-col items-center">
+      
+      <!-- Logo Image Section -->
+      <a href="#" class="inline-block transition-transform duration-300 hover:scale-105 mb-4 sm:mb-6">
+        <img src="16151.png" alt="Flexiz Online Studio Logo" class="h-16 sm:h-24 md:h-28 object-contain mx-auto" onerror="this.onerror=null; this.src='https://placehold.co/240x90/124E48/ffffff?text=flexiz';">
+      </a>
+
+      <!-- Header Navigation Menu -->
+      <nav class="w-full max-w-lg">
+        <ul class="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 md:gap-10 text-tealBrand font-semibold text-sm sm:text-base">
+          <li><a href="#registration" class="hover:text-orangeBrand transition-colors py-2 border-b-2 border-transparent hover:border-orangeBrand">Գլխավոր</a></li>
+          <li><a href="#courses" class="hover:text-orangeBrand transition-colors py-2 border-b-2 border-transparent hover:border-orangeBrand">Դասընթացներ</a></li>
+        </ul>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- Courses & Pricing -->
+  <section id="pricing" class="container mx-auto px-4 pt-6 relative z-10 max-w-4xl scroll-mt-4">
+    <div id="courses" class="scroll-mt-4">
+      <h2 class="text-xl sm:text-3xl font-extrabold text-tealBrand text-center mb-5 sm:mb-6 tracking-wide">Դասընթացներ և գներ</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
+        <div class="bg-white rounded-2xl p-5 sm:p-6 border border-tealBrand/15 form-card-shadow">
+          <h3 class="text-lg font-extrabold text-tealBrand">🌅 1. «Առավոտն ինձ հետ»</h3>
+          <p class="text-sm text-gray-600 mt-1 mb-3">Էներգիայի և առավոտյան թարմության համար</p>
+          <p class="text-xs text-gray-500">⏱ Տևողությունը՝ 15 րոպե</p>
+          <p class="text-xs text-gray-500 mb-4">📅 Հաճախականությունը՝ Երկուշաբթիից Շաբաթ</p>
+          <p class="text-xs font-bold text-tealBrand mb-2">💰 Արժեքը՝</p>
+          <ul class="space-y-2">
+            <li class="flex items-center justify-between gap-3">
+              <span class="text-sm text-gray-700">🧪 1 շաբաթ (փորձնական)</span>
+              <button type="button" data-plan="Առավոտն ինձ հետ — 🧪 1 շաբաթ (փորձնական)" class="plan-btn text-sm font-bold text-tealBrand hover:text-white hover:bg-tealBrand border border-tealBrand/30 rounded-lg px-3 py-1 transition-colors">2,500 ֏</button>
+            </li>
+            <li class="flex items-center justify-between gap-3">
+              <span class="text-sm text-gray-700">🗓 1 ամիս</span>
+              <button type="button" data-plan="Առավոտն ինձ հետ — 🗓 1 ամիս" class="plan-btn text-sm font-bold text-tealBrand hover:text-white hover:bg-tealBrand border border-tealBrand/30 rounded-lg px-3 py-1 transition-colors">8,900 ֏</button>
+            </li>
+            <li class="flex items-center justify-between gap-3">
+              <span class="text-sm text-gray-700">🗓 3 ամիս</span>
+              <button type="button" data-plan="Առավոտն ինձ հետ — 🗓 3 ամիս" class="plan-btn text-sm font-bold text-tealBrand hover:text-white hover:bg-tealBrand border border-tealBrand/30 rounded-lg px-3 py-1 transition-colors">24,000 ֏</button>
+            </li>
+          </ul>
+        </div>
+        <div class="bg-white rounded-2xl p-5 sm:p-6 border border-tealBrand/15 form-card-shadow">
+          <h3 class="text-lg font-extrabold text-tealBrand">🧘‍♀️ 2. «Առողջ մեջք»</h3>
+          <p class="text-sm text-gray-600 mt-1 mb-3">Վերականգնողական մարզումներ մեջքի թեթևության և կեցվածքի համար</p>
+          <p class="text-xs text-gray-500">⏱ Տևողությունը՝ 30 րոպե</p>
+          <p class="text-xs text-gray-500 mb-4">📅 Հաճախականությունը՝ Շաբաթական 2 անգամ</p>
+          <p class="text-xs font-bold text-tealBrand mb-2">💰 Արժեքը՝</p>
+          <ul class="space-y-2">
+            <li class="flex items-center justify-between gap-3">
+              <span class="text-sm text-gray-700">🧪 1 շաբաթ (փորձնական)</span>
+              <button type="button" data-plan="Առողջ մեջք — 🧪 1 շաբաթ (փորձնական)" class="plan-btn text-sm font-bold text-tealBrand hover:text-white hover:bg-tealBrand border border-tealBrand/30 rounded-lg px-3 py-1 transition-colors">3,000 ֏</button>
+            </li>
+            <li class="flex items-center justify-between gap-3">
+              <span class="text-sm text-gray-700">🗓 1 ամիս</span>
+              <button type="button" data-plan="Առողջ մեջք — 🗓 1 ամիս" class="plan-btn text-sm font-bold text-tealBrand hover:text-white hover:bg-tealBrand border border-tealBrand/30 rounded-lg px-3 py-1 transition-colors">9,900 ֏</button>
+            </li>
+            <li class="flex items-center justify-between gap-3">
+              <span class="text-sm text-gray-700">🗓 3 ամիս</span>
+              <button type="button" data-plan="Առողջ մեջք — 🗓 3 ամիս" class="plan-btn text-sm font-bold text-tealBrand hover:text-white hover:bg-tealBrand border border-tealBrand/30 rounded-lg px-3 py-1 transition-colors">27,000 ֏</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-5 sm:mt-6 rounded-2xl p-5 sm:p-6 bg-tealBrand text-white form-card-shadow">
+        <h3 class="text-lg font-extrabold">🌟 🔥 ԽՆԱՅՈՂ ՓԱԹԵԹ (COMBO)</h3>
+        <p class="text-sm text-white/85 mt-1 mb-4">«Առավոտն ինձ հետ» + «Առողջ մեջք» — Մաքսիմալ արդյունք և լավագույն առաջարկ</p>
+        <ul class="space-y-3">
+          <li class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <span class="text-sm">🗓 1 ամիս՝ <s class="text-white/60">18,800 ֏</s> ➡️ <b>15,900 ֏</b> <span class="text-xs text-orange-200">(խնայում եք 2,900 ֏)</span></span>
+            <button type="button" data-plan="COMBO — 1 ամիս" class="plan-btn w-full sm:w-auto text-sm font-bold bg-orangeBrand hover:bg-orangeHover text-white rounded-lg px-3 py-1.5 transition-colors">Ընտրել</button>
+          </li>
+          <li class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <span class="text-sm">🗓 3 ամիս՝ <s class="text-white/60">51,000 ֏</s> ➡️ <b>43,000 ֏</b> <span class="text-xs text-orange-200">(խնայում եք 8,000 ֏)</span></span>
+            <button type="button" data-plan="COMBO — 3 ամիս" class="plan-btn w-full sm:w-auto text-sm font-bold bg-orangeBrand hover:bg-orangeHover text-white rounded-lg px-3 py-1.5 transition-colors">Ընտրել</button>
+          </li>
+        </ul>
+      </div>
+      <p class="text-center text-xs text-tealBrand/70 mt-4">Սեղմեք գնի վրա՝ փաթեթն ընտրելու և գրանցվելու համար</p>
+    </div>
+  </section>
+
+  <!-- Main Form Section -->
+  <main class="container mx-auto px-4 py-5 sm:py-6 flex-grow flex justify-center items-center relative z-10">
+    <div id="registration" class="scroll-mt-4 w-full max-w-lg bg-tealBg/60 backdrop-blur-md rounded-2xl p-5 sm:p-10 border border-tealBrand/20 form-card-shadow">
+      
+      <!-- Card Form Title -->
+      <h1 class="text-2xl sm:text-3xl font-extrabold text-tealBrand text-center mb-6 sm:mb-8 tracking-wide">
+        Գրանցում
+      </h1>
+
+      <form id="flexizRegistrationForm" class="space-y-5" novalidate>
+        
+        <!-- Field 1: Name (Անուն) -->
+        <div>
+          <label for="firstName" class="block text-sm font-semibold text-tealBrand mb-2">
+            Անուն
+          </label>
+          <input type="text" id="firstName" autocomplete="given-name" name="firstName" required
+            class="custom-input w-full px-4 py-3 rounded-xl text-base sm:text-sm font-medium text-gray-800 placeholder-gray-400"
+            placeholder="Մուտքագրեք Ձեր անունը">
+          <p class="text-red-500 text-xs mt-1 hidden" id="err-firstName">Խնդրում ենք լրացնել Անունը</p>
+        </div>
+
+        <!-- Field 2: Last Name (Ազգանուն) -->
+        <div>
+          <label for="lastName" class="block text-sm font-semibold text-tealBrand mb-2">
+            Ազգանուն
+          </label>
+          <input type="text" id="lastName" autocomplete="family-name" name="lastName" required
+            class="custom-input w-full px-4 py-3 rounded-xl text-base sm:text-sm font-medium text-gray-800 placeholder-gray-400"
+            placeholder="Մուտքագրեք Ձեր ազգանունը">
+          <p class="text-red-500 text-xs mt-1 hidden" id="err-lastName">Խնդրում ենք լրացնել Ազգանունը</p>
+        </div>
+
+        <!-- Field 3: Phone Number (Հեռախոսահամար) -->
+        <div>
+          <label for="phone" class="block text-sm font-semibold text-tealBrand mb-2">
+            Հեռախոսահամար
+          </label>
+          <input type="tel" id="phone" inputmode="tel" autocomplete="tel" name="phone" required
+            class="custom-input w-full px-4 py-3 rounded-xl text-base sm:text-sm font-medium text-gray-800 placeholder-gray-400"
+            placeholder="+374 99 000000">
+          <p class="text-red-500 text-xs mt-1 hidden" id="err-phone">Խնդրում ենք մուտքագրել հեռախոսահամարը</p>
+        </div>
+
+        <!-- Field 4: Telegram Username (Telegram-ի անուն) -->
+        <div>
+          <label for="tgUsername" class="block text-sm font-semibold text-tealBrand mb-2">
+            Telegram-ի անուն (@username)
+          </label>
+          <input type="text" id="tgUsername" name="tgUsername" required
+            class="custom-input w-full px-4 py-3 rounded-xl text-base sm:text-sm font-medium text-gray-800 placeholder-gray-400"
+            placeholder="@username">
+          <p class="text-red-500 text-xs mt-1 hidden" id="err-tgUsername">Խնդրում ենք մուտքագրել Telegram-ի անունը</p>
+        </div>
+
+        <!-- Field 5: Telegram Phone (Telegram-ի հեռախոսահամար) -->
+        <div>
+          <label for="tgPhone" class="block text-sm font-semibold text-tealBrand mb-2">
+            Telegram-ի հեռախոսահամար
+          </label>
+          <input type="tel" id="tgPhone" inputmode="tel" autocomplete="tel" name="tgPhone" required
+            class="custom-input w-full px-4 py-3 rounded-xl text-base sm:text-sm font-medium text-gray-800 placeholder-gray-400"
+            placeholder="+374 99 000000">
+          <p class="text-red-500 text-xs mt-1 hidden" id="err-tgPhone">Խնդրում ենք մուտքագրել Telegram-ի հեռախոսահամարը</p>
+        </div>
+
+        <!-- Field: Plan -->
+        <div>
+          <label for="plan" class="block text-sm font-semibold text-tealBrand mb-2">
+            Փաթեթ
+          </label>
+          <select id="plan" name="plan" required class="custom-input w-full px-4 py-3 rounded-xl text-base sm:text-sm font-medium text-gray-800">
+            <option value="">Ընտրեք փաթեթը</option>
+            <option value="Առավոտն ինձ հետ — 🧪 1 շաբաթ (փորձնական)">Առավոտն ինձ հետ — 🧪 1 շաբաթ (փորձնական) · 2,500 ֏</option>
+            <option value="Առավոտն ինձ հետ — 🗓 1 ամիս">Առավոտն ինձ հետ — 🗓 1 ամիս · 8,900 ֏</option>
+            <option value="Առավոտն ինձ հետ — 🗓 3 ամիս">Առավոտն ինձ հետ — 🗓 3 ամիս · 24,000 ֏</option>
+            <option value="Առողջ մեջք — 🧪 1 շաբաթ (փորձնական)">Առողջ մեջք — 🧪 1 շաբաթ (փորձնական) · 3,000 ֏</option>
+            <option value="Առողջ մեջք — 🗓 1 ամիս">Առողջ մեջք — 🗓 1 ամիս · 9,900 ֏</option>
+            <option value="Առողջ մեջք — 🗓 3 ամիս">Առողջ մեջք — 🗓 3 ամիս · 27,000 ֏</option>
+            <option value="COMBO — 1 ամիս">COMBO — 1 ամիս · 15,900 ֏</option>
+            <option value="COMBO — 3 ամիս">COMBO — 3 ամիս · 43,000 ֏</option>
+          </select>
+          <p class="text-red-500 text-xs mt-1 hidden" id="err-plan">Խնդրում ենք ընտրել փաթեթը</p>
+        </div>
+
+        <!-- Payment Card Info (above receipt upload) -->
+        <div>
+          <label class="block text-sm font-semibold text-tealBrand mb-2">
+            Վճարման քարտ
+          </label>
+          <div class="pay-card rounded-2xl p-5 text-white form-card-shadow">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-semibold uppercase tracking-wider text-white/80">Արարատ բանկ</span>
+              <i class="fa-regular fa-credit-card text-xl text-white/80"></i>
+            </div>
+            <div class="flex items-center justify-between gap-3">
+              <span id="cardNumber" class="text-lg sm:text-2xl font-bold tracking-widest select-all" style="font-variant-numeric: tabular-nums;">1510 0496 9094 6900</span>
+              <button type="button" id="copyCardBtn" class="copy-btn shrink-0 bg-orangeBrand hover:bg-orangeHover text-white text-xs sm:text-sm font-bold rounded-lg px-3 py-2 transition-colors">
+                <i class="fa-regular fa-copy mr-1"></i><span id="copyBtnText">Պատճենել</span>
+              </button>
+            </div>
+            <p class="text-[11px] text-white/70 mt-3">Կատարեք վճարումը վերոնշյալ քարտին և կցեք կտրոնը ստորև</p>
+          </div>
+        </div>
+
+        <!-- Field 6: Payment Receipt File Upload (Վճարման կտրոնի նկարը) -->
+        <div>
+          <label class="block text-sm font-semibold text-tealBrand mb-2">
+            Վճարման կտրոնի նկարը
+          </label>
+          
+          <div id="dropZone" class="border-2 border-dashed border-tealBrand/40 bg-white hover:bg-tealBrand/5 transition-colors rounded-xl p-5 text-center cursor-pointer relative">
+            <input type="file" id="receipt" name="receipt" accept="image/*,.pdf" class="hidden">
+            
+            <div id="uploadPrompt" class="flex flex-col items-center justify-center py-2">
+              <i class="fa-solid fa-cloud-arrow-up text-3xl text-orangeBrand mb-2"></i>
+              <p class="text-sm font-semibold text-tealBrand">Կցել վճարման կտրոնը</p>
+              <p class="text-xs text-gray-500 mt-1">Սեղմեք կամ քաշեք ֆայլը այստեղ</p>
+              <span class="text-[11px] text-gray-400 mt-1">PNG, JPG, JPEG, PDF</span>
+            </div>
+
+            <!-- Preview Container -->
+            <div id="previewContainer" class="hidden flex-col items-center justify-center">
+              <div class="relative mb-2">
+                <img id="imagePreview" src="" alt="Կտրոնի նախադիտում" class="max-h-36 rounded-lg border border-gray-200 object-contain hidden">
+                <div id="pdfPreview" class="hidden flex-col items-center p-3 bg-gray-50 rounded-lg border border-gray-200">
+                  <i class="fa-solid fa-file-pdf text-3xl text-red-500 mb-1"></i>
+                  <span id="pdfFileName" class="text-xs text-gray-700 font-medium truncate max-w-[180px]"></span>
+                </div>
+              </div>
+              <p id="fileDetails" class="text-xs font-bold text-tealBrand mb-2"></p>
+              <button type="button" id="removeFileBtn" class="text-xs text-orangeBrand hover:text-orangeHover font-semibold bg-orangeBrand/10 px-3 py-1 rounded-md transition-colors">
+                <i class="fa-solid fa-trash-can mr-1"></i> Հեռացնել ֆայլը
+              </button>
+            </div>
+          </div>
+          <p class="text-red-500 text-xs mt-1 hidden" id="err-receipt">Խնդրում ենք կցել վճարման կտրոնի նկարը</p>
+        </div>
+
+        <!-- Submit Button: "Գրանցվել Հիմա" -->
+        <div class="pt-4">
+          <button type="submit" id="submitBtn" class="btn-spine-accent w-full bg-orangeBrand hover:bg-orangeHover text-white font-extrabold py-4 px-6 rounded-xl shadow-lg shadow-orangeBrand/25 transition-all transform active:scale-[0.99] text-base sm:text-lg tracking-wide uppercase">
+            Գրանցվել Հիմա
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </main>
+
+  <!-- Bottom Divider Line -->
+  <div class="w-[calc(100%-2rem)] max-w-4xl mx-auto border-t border-tealBrand/20 my-6"></div>
+
+  <!-- Page Footer -->
+  <footer class="w-full px-4 pb-6 text-center text-xs text-tealBrand/70 font-medium relative z-10">
+    <p>© 2026 ՖԼԵՔՍԻԶ ՕՆԼԱՅՆ ՍՏՈՒԴԻԱ: Բոլոր իրավունքները պաշտպանված են:</p>
+  </footer>
+
+  <!-- Modal Dialog for Submission Success -->
+  <div id="successModal" class="fixed inset-0 bg-tealBrand/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
+    <div class="bg-white rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 text-center shadow-2xl border border-gray-100 transform scale-95 transition-transform duration-300" id="modalCard">
+      <div class="w-16 h-16 bg-tealBg text-tealBrand rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
+        <i class="fa-solid fa-circle-check text-orangeBrand"></i>
+      </div>
+      <h3 class="text-xl font-extrabold text-tealBrand mb-2">Գրանցումն ընդունված է</h3>
+      <p class="text-sm text-gray-600 mb-6 leading-relaxed">
+        Շնորհակալություն, <span id="modalUserName" class="font-bold text-tealBrand"></span>: Ձեր հայտը և վճարման կտրոնը հաջողությամբ ուղարկվել են: Մեր թիմը շուտով կապ կհաստատի Ձեզ հետ Telegram-ով:
+      </p>
+      <button id="closeModalBtn" class="w-full bg-tealBrand hover:bg-tealHover text-white font-bold py-3 px-4 rounded-xl transition-colors text-sm uppercase tracking-wider">
+        ԼԱՎ
+      </button>
+    </div>
+  </div>
+
+  <!-- Firebase (Firestore) -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const app = initializeApp({
+      apiKey: "AIzaSyCd9paTQvD30NA6dBlq7K3nVszAkUgn78s",
+      authDomain: "flexiz-5ced2.firebaseapp.com",
+      projectId: "flexiz-5ced2",
+      storageBucket: "flexiz-5ced2.firebasestorage.app",
+      messagingSenderId: "538026746412",
+      appId: "1:538026746412:web:75735f0753d5eac1db2789"
+    });
+    const db = getFirestore(app);
+
+    window.fbSaveRegistration = (data) =>
+      addDoc(collection(db, "registrations"), { ...data, createdAt: serverTimestamp() });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('flexizRegistrationForm');
+      const dropZone = document.getElementById('dropZone');
+      const fileInput = document.getElementById('receipt');
+      const uploadPrompt = document.getElementById('uploadPrompt');
+      const previewContainer = document.getElementById('previewContainer');
+      const imagePreview = document.getElementById('imagePreview');
+      const pdfPreview = document.getElementById('pdfPreview');
+      const pdfFileName = document.getElementById('pdfFileName');
+      const fileDetails = document.getElementById('fileDetails');
+      const removeFileBtn = document.getElementById('removeFileBtn');
+
+      const successModal = document.getElementById('successModal');
+      const modalCard = document.getElementById('modalCard');
+      const closeModalBtn = document.getElementById('closeModalBtn');
+      const modalUserName = document.getElementById('modalUserName');
+
+      // Copy card number
+      const CARD_NUMBER = '1510049690946900';
+      const copyCardBtn = document.getElementById('copyCardBtn');
+      const copyBtnText = document.getElementById('copyBtnText');
+      document.getElementById('cardNumber').textContent = CARD_NUMBER.replace(/(\d{4})(?=\d)/g, '$1 ');
+
+      function fallbackCopy(text) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        ta.setSelectionRange(0, text.length);
+        try { document.execCommand('copy'); } catch (_) {}
+        document.body.removeChild(ta);
+      }
+
+      copyCardBtn.addEventListener('click', async () => {
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(CARD_NUMBER);
+          } else {
+            fallbackCopy(CARD_NUMBER);
+          }
+        } catch (_) {
+          fallbackCopy(CARD_NUMBER);
+        }
+        copyBtnText.textContent = 'Պատճենվեց ✓';
+        copyCardBtn.classList.add('copied');
+        setTimeout(() => {
+          copyBtnText.textContent = 'Պատճենել';
+          copyCardBtn.classList.remove('copied');
+        }, 2000);
+      });
+
+      // Drag and Drop Event Handling
+      ['dragenter', 'dragover'].forEach(eventName => {
+        dropZone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropZone.classList.add('drag-active');
+        }, false);
+      });
+
+      ['dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropZone.classList.remove('drag-active');
+        }, false);
+      });
+
+      dropZone.addEventListener('drop', (e) => {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        if (files && files.length > 0) {
+          fileInput.files = files;
+          processSelectedFile(files[0]);
+        }
+      });
+
+      dropZone.addEventListener('click', (e) => {
+        if (e.target !== removeFileBtn && !removeFileBtn.contains(e.target)) {
+          fileInput.click();
+        }
+      });
+
+      fileInput.addEventListener('change', () => {
+        if (fileInput.files && fileInput.files[0]) {
+          processSelectedFile(fileInput.files[0]);
+        }
+      });
+
+      function processSelectedFile(file) {
+        document.getElementById('err-receipt').classList.add('hidden');
+        uploadPrompt.classList.add('hidden');
+        previewContainer.classList.remove('hidden');
+        previewContainer.classList.add('flex');
+
+        fileDetails.textContent = `${file.name} (${(file.size / (1024 * 1024)).toFixed(2)} MB)`;
+
+        if (file.type.startsWith('image/')) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            imagePreview.src = e.target.result;
+            imagePreview.classList.remove('hidden');
+            pdfPreview.classList.add('hidden');
+          };
+          reader.readAsDataURL(file);
+        } else if (file.type === 'application/pdf') {
+          imagePreview.classList.add('hidden');
+          pdfPreview.classList.remove('hidden');
+          pdfPreview.classList.add('flex');
+          pdfFileName.textContent = file.name;
+        }
+      }
+
+      removeFileBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        fileInput.value = '';
+        imagePreview.src = '';
+        uploadPrompt.classList.remove('hidden');
+        previewContainer.classList.add('hidden');
+        previewContainer.classList.remove('flex');
+      });
+
+      // Plan buttons preselect the dropdown
+      const planSelect = document.getElementById('plan');
+      document.querySelectorAll('.plan-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const opt = Array.from(planSelect.options).find(o => o.value === btn.dataset.plan);
+          if (opt) planSelect.value = opt.value;
+          document.getElementById('err-plan').classList.add('hidden');
+          document.getElementById('flexizRegistrationForm').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+      });
+
+      // ---- Cloudinary ----
+      const CLOUD_NAME = 'mrqeiihp';
+      const UPLOAD_PRESET = 'flexiz';
+
+      async function cloudUpload(resourceType, file, extra) {
+        const fd = new FormData();
+        fd.append('file', file);
+        fd.append('upload_preset', UPLOAD_PRESET);
+        Object.entries(extra || {}).forEach(([k, v]) => fd.append(k, v));
+        const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/${resourceType}/upload`, { method: 'POST', body: fd });
+        const json = await res.json();
+        if (!res.ok) throw new Error((json.error && json.error.message) || 'Upload failed');
+        return json;
+      }
+
+      // Shrink the receipt photo before upload (max 1200px, JPEG 60%) -> usually 100-250 KB
+      async function compressImage(file) {
+        if (!file.type.startsWith('image/')) return file;
+        try {
+          const bmp = await createImageBitmap(file);
+          const MAX = 1200;
+          const s = Math.min(1, MAX / Math.max(bmp.width, bmp.height));
+          const c = document.createElement('canvas');
+          c.width = Math.round(bmp.width * s);
+          c.height = Math.round(bmp.height * s);
+          const ctx = c.getContext('2d');
+          ctx.fillStyle = '#fff';
+          ctx.fillRect(0, 0, c.width, c.height);
+          ctx.drawImage(bmp, 0, 0, c.width, c.height);
+          const blob = await new Promise((r) => c.toBlob(r, 'image/jpeg', 0.6));
+          return blob && blob.size < file.size ? blob : file;
+        } catch (_) {
+          return file;
+        }
+      }
+
+      async function sendRegistration() {
+        const val = (i) => document.getElementById(i).value.trim();
+
+        // 1) compressed receipt -> Cloudinary
+        const small = await compressImage(fileInput.files[0]);
+        const img = await cloudUpload('auto', small, { tags: 'flexiz_receipt' });
+
+        // 2) registration data -> Firebase Firestore
+        await window.fbSaveRegistration({
+          firstName: val('firstName'),
+          lastName: val('lastName'),
+          phone: val('phone'),
+          tgUsername: val('tgUsername'),
+          tgPhone: val('tgPhone'),
+          plan: val('plan'),
+          receiptUrl: img.secure_url
+        });
+      }
+
+      // Form Submit & Validation
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        let isFormValid = true;
+
+        const inputFields = [
+          { id: 'firstName', errId: 'err-firstName' },
+          { id: 'lastName', errId: 'err-lastName' },
+          { id: 'phone', errId: 'err-phone' },
+          { id: 'tgUsername', errId: 'err-tgUsername' },
+          { id: 'tgPhone', errId: 'err-tgPhone' },
+          { id: 'plan', errId: 'err-plan' }
+        ];
+
+        inputFields.forEach(item => {
+          const input = document.getElementById(item.id);
+          const errMessage = document.getElementById(item.errId);
+
+          if (!input.value.trim()) {
+            errMessage.classList.remove('hidden');
+            input.classList.add('border-red-500');
+            isFormValid = false;
+          } else {
+            errMessage.classList.add('hidden');
+            input.classList.remove('border-red-500');
+          }
+        });
+
+        // Receipt Upload Validation
+        if (!fileInput.files || fileInput.files.length === 0) {
+          document.getElementById('err-receipt').classList.remove('hidden');
+          isFormValid = false;
+        } else {
+          document.getElementById('err-receipt').classList.add('hidden');
+        }
+
+        if (isFormValid) {
+          const fName = document.getElementById('firstName').value;
+          const lName = document.getElementById('lastName').value;
+
+          // Send to Cloudinary
+          const submitBtn = document.getElementById('submitBtn');
+          const origText = submitBtn.textContent;
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Ուղարկվում է...';
+          try {
+            await sendRegistration();
+          } catch (err) {
+            console.error(err);
+            alert('Չհաջողվեց ուղարկել հայտը։ Խնդրում ենք ստուգել կապը և կրկին փորձել։');
+            submitBtn.disabled = false;
+            submitBtn.textContent = origText;
+            return;
+          }
+          submitBtn.disabled = false;
+          submitBtn.textContent = origText;
+
+          modalUserName.textContent = `${fName} ${lName}`;
+
+          // Show Success Modal
+          successModal.classList.remove('hidden');
+          setTimeout(() => {
+            successModal.classList.remove('opacity-0');
+            modalCard.classList.remove('scale-95');
+            modalCard.classList.add('scale-100');
+          }, 10);
+
+          // Reset Form
+          form.reset();
+          removeFileBtn.click();
+        }
+      });
+
+      closeModalBtn.addEventListener('click', () => {
+        successModal.classList.add('opacity-0');
+        modalCard.classList.remove('scale-100');
+        modalCard.classList.add('scale-95');
+        setTimeout(() => {
+          successModal.classList.add('hidden');
+        }, 300);
+      });
+    });
+  </script>
+</body>
+</html>
