@@ -8,7 +8,7 @@
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  
+
   <!-- Fonts & FontAwesome -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -47,14 +47,12 @@
     img, svg { max-width: 100%; }
     body { min-height: 100dvh; padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); padding-bottom: env(safe-area-inset-bottom); }
 
-    /* Comfortable touch targets */
     .plan-btn { min-height: 40px; min-width: 92px; white-space: nowrap; }
     select.custom-input { appearance: none; -webkit-appearance: none; padding-right: 2.5rem; text-overflow: ellipsis;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23124E48' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
       background-repeat: no-repeat; background-position: right 1rem center; }
     button, a { -webkit-tap-highlight-color: transparent; }
 
-    /* Small phones */
     @media (max-width: 380px) {
       .plan-btn { min-width: 80px; font-size: 12px; }
     }
@@ -63,66 +61,25 @@
       * { transition: none !important; }
     }
 
-    /* Custom Input Focus Effect */
     .custom-input {
       transition: all 0.25s ease;
       background-color: #ffffff;
       border: 1.5px solid #d1dcdb;
     }
-    
+
     .custom-input:focus {
       border-color: #124E48;
       box-shadow: 0 0 0 4px rgba(18, 78, 72, 0.12);
       outline: none;
     }
 
-    /* Spine SVG background pattern placement */
-    .spine-bg-left-top {
-      position: absolute;
-      top: -20px;
-      left: -30px;
-      width: 140px;
-      opacity: 0.85;
-      pointer-events: none;
-      z-index: 0;
-    }
+    .spine-bg-left-top { position: absolute; top: -20px; left: -30px; width: 140px; opacity: 0.85; pointer-events: none; z-index: 0; }
+    .spine-bg-right-top { position: absolute; top: -10px; right: -20px; width: 130px; opacity: 0.25; pointer-events: none; z-index: 0; }
+    .spine-bg-left-bottom { position: absolute; bottom: -10px; left: -20px; width: 130px; opacity: 0.85; pointer-events: none; z-index: 0; }
+    .spine-bg-right-bottom { position: absolute; bottom: -10px; right: -20px; width: 130px; opacity: 0.3; pointer-events: none; z-index: 0; }
 
-    .spine-bg-right-top {
-      position: absolute;
-      top: -10px;
-      right: -20px;
-      width: 130px;
-      opacity: 0.25;
-      pointer-events: none;
-      z-index: 0;
-    }
+    .btn-spine-accent { position: relative; overflow: hidden; }
 
-    .spine-bg-left-bottom {
-      position: absolute;
-      bottom: -10px;
-      left: -20px;
-      width: 130px;
-      opacity: 0.85;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .spine-bg-right-bottom {
-      position: absolute;
-      bottom: -10px;
-      right: -20px;
-      width: 130px;
-      opacity: 0.3;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* Spine Texture Pattern on Button Ends */
-    .btn-spine-accent {
-      position: relative;
-      overflow: hidden;
-    }
-    
     .btn-spine-accent::before, .btn-spine-accent::after {
       content: '';
       position: absolute;
@@ -134,39 +91,29 @@
       background-repeat: repeat-y;
       opacity: 0.55;
     }
+    .btn-spine-accent::before { left: 6px; }
+    .btn-spine-accent::after { right: 6px; }
 
-    .btn-spine-accent::before {
-      left: 6px;
-    }
-
-    .btn-spine-accent::after {
-      right: 6px;
-    }
-
-    /* Drag and Drop Highlight */
     .drag-active {
       border-color: #E35325 !important;
       background-color: rgba(227, 83, 37, 0.05) !important;
     }
 
-    /* Custom Card Shadow */
     .form-card-shadow {
       box-shadow: 0 15px 35px -5px rgba(18, 78, 72, 0.12), 0 5px 15px -5px rgba(0, 0, 0, 0.04);
     }
 
-    /* Payment card */
-    .pay-card {
-      background: linear-gradient(135deg, #124E48 0%, #1b645d 100%);
-    }
-    .copy-btn.copied {
-      background-color: #16a34a !important;
-    }
+    .pay-card { background: linear-gradient(135deg, #124E48 0%, #1b645d 100%); }
+    .copy-btn.copied { background-color: #16a34a !important; }
+
+    .lang-btn { min-width: 44px; }
+    .lang-btn.active { background-color: #124E48; color: #fff; border-color: #124E48; }
   </style>
 </head>
 
 <body class="relative flex flex-col justify-between min-h-screen text-gray-800">
 
-  <!-- Background Decorative Spine Left Top (Orange) -->
+  <!-- Background Decorative Spines -->
   <svg class="spine-bg-left-top hidden sm:block" viewBox="0 0 100 300" fill="none" xmlns="http://www.w3.org/2000/svg">
     <ellipse cx="20" cy="20" rx="18" ry="6" fill="#E35325" transform="rotate(-15 20 20)"/>
     <ellipse cx="28" cy="40" rx="19" ry="6.5" fill="#E35325" transform="rotate(-10 28 40)"/>
@@ -179,7 +126,6 @@
     <ellipse cx="12" cy="180" rx="14" ry="5" fill="#E35325" transform="rotate(25 12 180)"/>
   </svg>
 
-  <!-- Background Decorative Spine Right Top (Teal Faded) -->
   <svg class="spine-bg-right-top hidden sm:block" viewBox="0 0 100 300" fill="none" xmlns="http://www.w3.org/2000/svg">
     <ellipse cx="80" cy="20" rx="18" ry="6" fill="#124E48" transform="rotate(15 80 20)"/>
     <ellipse cx="72" cy="40" rx="19" ry="6.5" fill="#124E48" transform="rotate(10 72 40)"/>
@@ -191,7 +137,6 @@
     <ellipse cx="78" cy="162" rx="16" ry="5.5" fill="#124E48" transform="rotate(-20 78 162)"/>
   </svg>
 
-  <!-- Background Decorative Spine Left Bottom (Orange) -->
   <svg class="spine-bg-left-bottom hidden sm:block" viewBox="0 0 100 300" fill="none" xmlns="http://www.w3.org/2000/svg">
     <ellipse cx="12" cy="120" rx="14" ry="5" fill="#E35325" transform="rotate(-25 12 120)"/>
     <ellipse cx="22" cy="138" rx="16" ry="5.5" fill="#E35325" transform="rotate(-20 22 138)"/>
@@ -204,7 +149,6 @@
     <ellipse cx="20" cy="280" rx="18" ry="6" fill="#E35325" transform="rotate(15 20 280)"/>
   </svg>
 
-  <!-- Background Decorative Spine Right Bottom (Teal Faded) -->
   <svg class="spine-bg-right-bottom hidden sm:block" viewBox="0 0 100 300" fill="none" xmlns="http://www.w3.org/2000/svg">
     <ellipse cx="78" cy="138" rx="16" ry="5.5" fill="#124E48" transform="rotate(20 78 138)"/>
     <ellipse cx="70" cy="157" rx="18" ry="6" fill="#124E48" transform="rotate(15 70 157)"/>
@@ -215,22 +159,28 @@
     <ellipse cx="72" cy="260" rx="19" ry="6.5" fill="#124E48" transform="rotate(-10 72 260)"/>
   </svg>
 
-  <!-- Top Header with Logo and Navigation Menu -->
+  <!-- Header -->
   <header class="w-full pt-5 sm:pt-8 pb-3 sm:pb-4 px-4 relative z-10">
     <div class="max-w-4xl mx-auto flex flex-col items-center">
-      
-      <!-- Logo Image Section -->
+
       <a href="#" class="inline-block transition-transform duration-300 hover:scale-105 mb-4 sm:mb-6">
         <img src="16151.png" alt="Flexiz Online Studio Logo" class="h-16 sm:h-24 md:h-28 object-contain mx-auto" onerror="this.onerror=null; this.src='https://placehold.co/240x90/124E48/ffffff?text=flexiz';">
       </a>
 
-      <!-- Header Navigation Menu -->
-      <nav class="w-full max-w-lg">
+      <nav class="w-full max-w-2xl">
         <ul class="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 md:gap-10 text-tealBrand font-semibold text-sm sm:text-base">
-          <li><a href="#registration" class="hover:text-orangeBrand transition-colors py-2 border-b-2 border-transparent hover:border-orangeBrand">Գլխավոր</a></li>
-          <li><a href="#courses" class="hover:text-orangeBrand transition-colors py-2 border-b-2 border-transparent hover:border-orangeBrand">Դասընթացներ</a></li>
+          <li><a href="#registration" data-i18n="nav_home" class="hover:text-orangeBrand transition-colors py-2 border-b-2 border-transparent hover:border-orangeBrand"></a></li>
+          <li><a href="#courses" data-i18n="nav_courses" class="hover:text-orangeBrand transition-colors py-2 border-b-2 border-transparent hover:border-orangeBrand"></a></li>
+          <li><a href="#terms" data-i18n="nav_terms" class="hover:text-orangeBrand transition-colors py-2 border-b-2 border-transparent hover:border-orangeBrand"></a></li>
         </ul>
       </nav>
+
+      <!-- Language switcher -->
+      <div class="flex items-center gap-2 mt-3" role="group" aria-label="Language">
+        <button type="button" data-lang="hy" class="lang-btn text-xs font-bold text-tealBrand border border-tealBrand/30 rounded-lg px-3 py-1.5 transition-colors">ՀԱՅ</button>
+        <button type="button" data-lang="ru" class="lang-btn text-xs font-bold text-tealBrand border border-tealBrand/30 rounded-lg px-3 py-1.5 transition-colors">РУС</button>
+        <button type="button" data-lang="en" class="lang-btn text-xs font-bold text-tealBrand border border-tealBrand/30 rounded-lg px-3 py-1.5 transition-colors">ENG</button>
+      </div>
 
     </div>
   </header>
@@ -238,194 +188,159 @@
   <!-- Courses & Pricing -->
   <section id="pricing" class="container mx-auto px-4 pt-6 relative z-10 max-w-4xl scroll-mt-4">
     <div id="courses" class="scroll-mt-4">
-      <h2 class="text-xl sm:text-3xl font-extrabold text-tealBrand text-center mb-5 sm:mb-6 tracking-wide">Դասընթացներ և գներ</h2>
+      <h2 data-i18n="courses_title" class="text-xl sm:text-3xl font-extrabold text-tealBrand text-center mb-5 sm:mb-6 tracking-wide"></h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
         <div class="bg-white rounded-2xl p-5 sm:p-6 border border-tealBrand/15 form-card-shadow">
-          <h3 class="text-lg font-extrabold text-tealBrand">🌅 1. «Առավոտն ինձ հետ»</h3>
-          <p class="text-sm text-gray-600 mt-1 mb-3">Էներգիայի և առավոտյան թարմության համար</p>
-          <p class="text-xs text-gray-500">⏱ Տևողությունը՝ 15 րոպե</p>
-          <p class="text-xs text-gray-500 mb-4">📅 Հաճախականությունը՝ Երկուշաբթիից Շաբաթ</p>
-          <p class="text-xs font-bold text-tealBrand mb-2">💰 Արժեքը՝</p>
+          <h3 data-i18n="c1_title" class="text-lg font-extrabold text-tealBrand"></h3>
+          <p data-i18n="c1_sub" class="text-sm text-gray-600 mt-1 mb-3"></p>
+          <p data-i18n="dur15" class="text-xs text-gray-500"></p>
+          <p data-i18n="freq1" class="text-xs text-gray-500 mb-4"></p>
+          <p data-i18n="price_lbl" class="text-xs font-bold text-tealBrand mb-2"></p>
           <ul class="space-y-2">
             <li class="flex items-center justify-between gap-3">
-              <span class="text-sm text-gray-700">🧪 1 շաբաթ (փորձնական)</span>
+              <span data-i18n="wk" class="text-sm text-gray-700"></span>
               <button type="button" data-plan="Առավոտն ինձ հետ — 🧪 1 շաբաթ (փորձնական)" class="plan-btn text-sm font-bold text-tealBrand hover:text-white hover:bg-tealBrand border border-tealBrand/30 rounded-lg px-3 py-1 transition-colors">2,500 ֏</button>
             </li>
             <li class="flex items-center justify-between gap-3">
-              <span class="text-sm text-gray-700">🗓 1 ամիս</span>
+              <span data-i18n="m1" class="text-sm text-gray-700"></span>
               <button type="button" data-plan="Առավոտն ինձ հետ — 🗓 1 ամիս" class="plan-btn text-sm font-bold text-tealBrand hover:text-white hover:bg-tealBrand border border-tealBrand/30 rounded-lg px-3 py-1 transition-colors">8,900 ֏</button>
             </li>
             <li class="flex items-center justify-between gap-3">
-              <span class="text-sm text-gray-700">🗓 3 ամիս</span>
+              <span data-i18n="m3" class="text-sm text-gray-700"></span>
               <button type="button" data-plan="Առավոտն ինձ հետ — 🗓 3 ամիս" class="plan-btn text-sm font-bold text-tealBrand hover:text-white hover:bg-tealBrand border border-tealBrand/30 rounded-lg px-3 py-1 transition-colors">24,000 ֏</button>
             </li>
           </ul>
         </div>
         <div class="bg-white rounded-2xl p-5 sm:p-6 border border-tealBrand/15 form-card-shadow">
-          <h3 class="text-lg font-extrabold text-tealBrand">🧘‍♀️ 2. «Առողջ մեջք»</h3>
-          <p class="text-sm text-gray-600 mt-1 mb-3">Վերականգնողական մարզումներ մեջքի թեթևության և կեցվածքի համար</p>
-          <p class="text-xs text-gray-500">⏱ Տևողությունը՝ 30 րոպե</p>
-          <p class="text-xs text-gray-500 mb-4">📅 Հաճախականությունը՝ Շաբաթական 2 անգամ</p>
-          <p class="text-xs font-bold text-tealBrand mb-2">💰 Արժեքը՝</p>
+          <h3 data-i18n="c2_title" class="text-lg font-extrabold text-tealBrand"></h3>
+          <p data-i18n="c2_sub" class="text-sm text-gray-600 mt-1 mb-3"></p>
+          <p data-i18n="dur30" class="text-xs text-gray-500"></p>
+          <p data-i18n="freq2" class="text-xs text-gray-500 mb-4"></p>
+          <p data-i18n="price_lbl" class="text-xs font-bold text-tealBrand mb-2"></p>
           <ul class="space-y-2">
             <li class="flex items-center justify-between gap-3">
-              <span class="text-sm text-gray-700">🧪 1 շաբաթ (փորձնական)</span>
+              <span data-i18n="wk" class="text-sm text-gray-700"></span>
               <button type="button" data-plan="Առողջ մեջք — 🧪 1 շաբաթ (փորձնական)" class="plan-btn text-sm font-bold text-tealBrand hover:text-white hover:bg-tealBrand border border-tealBrand/30 rounded-lg px-3 py-1 transition-colors">3,000 ֏</button>
             </li>
             <li class="flex items-center justify-between gap-3">
-              <span class="text-sm text-gray-700">🗓 1 ամիս</span>
+              <span data-i18n="m1" class="text-sm text-gray-700"></span>
               <button type="button" data-plan="Առողջ մեջք — 🗓 1 ամիս" class="plan-btn text-sm font-bold text-tealBrand hover:text-white hover:bg-tealBrand border border-tealBrand/30 rounded-lg px-3 py-1 transition-colors">9,900 ֏</button>
             </li>
             <li class="flex items-center justify-between gap-3">
-              <span class="text-sm text-gray-700">🗓 3 ամիս</span>
+              <span data-i18n="m3" class="text-sm text-gray-700"></span>
               <button type="button" data-plan="Առողջ մեջք — 🗓 3 ամիս" class="plan-btn text-sm font-bold text-tealBrand hover:text-white hover:bg-tealBrand border border-tealBrand/30 rounded-lg px-3 py-1 transition-colors">27,000 ֏</button>
             </li>
           </ul>
         </div>
       </div>
       <div class="mt-5 sm:mt-6 rounded-2xl p-5 sm:p-6 bg-tealBrand text-white form-card-shadow">
-        <h3 class="text-lg font-extrabold">🌟 🔥 ԽՆԱՅՈՂ ՓԱԹԵԹ (COMBO)</h3>
-        <p class="text-sm text-white/85 mt-1 mb-4">«Առավոտն ինձ հետ» + «Առողջ մեջք» — Մաքսիմալ արդյունք և լավագույն առաջարկ</p>
+        <h3 data-i18n="combo_title" class="text-lg font-extrabold"></h3>
+        <p data-i18n="combo_sub" class="text-sm text-white/85 mt-1 mb-4"></p>
         <ul class="space-y-3">
           <li class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-            <span class="text-sm">🗓 1 ամիս՝ <s class="text-white/60">18,800 ֏</s> ➡️ <b>15,900 ֏</b> <span class="text-xs text-orange-200">(խնայում եք 2,900 ֏)</span></span>
-            <button type="button" data-plan="COMBO — 1 ամիս" class="plan-btn w-full sm:w-auto text-sm font-bold bg-orangeBrand hover:bg-orangeHover text-white rounded-lg px-3 py-1.5 transition-colors">Ընտրել</button>
+            <span data-i18n-html="combo1" class="text-sm"></span>
+            <button type="button" data-plan="COMBO — 1 ամիս" data-i18n="choose" class="plan-btn w-full sm:w-auto text-sm font-bold bg-orangeBrand hover:bg-orangeHover text-white rounded-lg px-3 py-1.5 transition-colors"></button>
           </li>
           <li class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-            <span class="text-sm">🗓 3 ամիս՝ <s class="text-white/60">51,000 ֏</s> ➡️ <b>43,000 ֏</b> <span class="text-xs text-orange-200">(խնայում եք 8,000 ֏)</span></span>
-            <button type="button" data-plan="COMBO — 3 ամիս" class="plan-btn w-full sm:w-auto text-sm font-bold bg-orangeBrand hover:bg-orangeHover text-white rounded-lg px-3 py-1.5 transition-colors">Ընտրել</button>
+            <span data-i18n-html="combo3" class="text-sm"></span>
+            <button type="button" data-plan="COMBO — 3 ամիս" data-i18n="choose" class="plan-btn w-full sm:w-auto text-sm font-bold bg-orangeBrand hover:bg-orangeHover text-white rounded-lg px-3 py-1.5 transition-colors"></button>
           </li>
         </ul>
       </div>
-      <p class="text-center text-xs text-tealBrand/70 mt-4">Սեղմեք գնի վրա՝ փաթեթն ընտրելու և գրանցվելու համար</p>
+      <p data-i18n="price_hint" class="text-center text-xs text-tealBrand/70 mt-4"></p>
     </div>
   </section>
 
   <!-- Main Form Section -->
   <main class="container mx-auto px-4 py-5 sm:py-6 flex-grow flex justify-center items-center relative z-10">
     <div id="registration" class="scroll-mt-4 w-full max-w-lg bg-tealBg/60 backdrop-blur-md rounded-2xl p-5 sm:p-10 border border-tealBrand/20 form-card-shadow">
-      
-      <!-- Card Form Title -->
-      <h1 class="text-2xl sm:text-3xl font-extrabold text-tealBrand text-center mb-6 sm:mb-8 tracking-wide">
-        Գրանցում
-      </h1>
+
+      <h1 data-i18n="reg_title" class="text-2xl sm:text-3xl font-extrabold text-tealBrand text-center mb-6 sm:mb-8 tracking-wide"></h1>
 
       <form id="flexizRegistrationForm" class="space-y-5" novalidate>
-        
-        <!-- Field 1: Name (Անուն) -->
+
         <div>
-          <label for="firstName" class="block text-sm font-semibold text-tealBrand mb-2">
-            Անուն
-          </label>
+          <label for="firstName" data-i18n="first_name" class="block text-sm font-semibold text-tealBrand mb-2"></label>
           <input type="text" id="firstName" autocomplete="given-name" name="firstName" required
-            class="custom-input w-full px-4 py-3 rounded-xl text-base sm:text-sm font-medium text-gray-800 placeholder-gray-400"
-            placeholder="Մուտքագրեք Ձեր անունը">
-          <p class="text-red-500 text-xs mt-1 hidden" id="err-firstName">Խնդրում ենք լրացնել Անունը</p>
+            data-i18n-ph="ph_first"
+            class="custom-input w-full px-4 py-3 rounded-xl text-base sm:text-sm font-medium text-gray-800 placeholder-gray-400">
+          <p class="text-red-500 text-xs mt-1 hidden" id="err-firstName" data-i18n="err_first"></p>
         </div>
 
-        <!-- Field 2: Last Name (Ազգանուն) -->
         <div>
-          <label for="lastName" class="block text-sm font-semibold text-tealBrand mb-2">
-            Ազգանուն
-          </label>
+          <label for="lastName" data-i18n="last_name" class="block text-sm font-semibold text-tealBrand mb-2"></label>
           <input type="text" id="lastName" autocomplete="family-name" name="lastName" required
-            class="custom-input w-full px-4 py-3 rounded-xl text-base sm:text-sm font-medium text-gray-800 placeholder-gray-400"
-            placeholder="Մուտքագրեք Ձեր ազգանունը">
-          <p class="text-red-500 text-xs mt-1 hidden" id="err-lastName">Խնդրում ենք լրացնել Ազգանունը</p>
+            data-i18n-ph="ph_last"
+            class="custom-input w-full px-4 py-3 rounded-xl text-base sm:text-sm font-medium text-gray-800 placeholder-gray-400">
+          <p class="text-red-500 text-xs mt-1 hidden" id="err-lastName" data-i18n="err_last"></p>
         </div>
 
-        <!-- Field 3: Phone Number (Հեռախոսահամար) -->
         <div>
-          <label for="phone" class="block text-sm font-semibold text-tealBrand mb-2">
-            Հեռախոսահամար
-          </label>
+          <label for="phone" data-i18n="phone" class="block text-sm font-semibold text-tealBrand mb-2"></label>
           <input type="tel" id="phone" inputmode="tel" autocomplete="tel" name="phone" required
             class="custom-input w-full px-4 py-3 rounded-xl text-base sm:text-sm font-medium text-gray-800 placeholder-gray-400"
             placeholder="+374 99 000000">
-          <p class="text-red-500 text-xs mt-1 hidden" id="err-phone">Խնդրում ենք մուտքագրել հեռախոսահամարը</p>
+          <p class="text-red-500 text-xs mt-1 hidden" id="err-phone" data-i18n="err_phone"></p>
         </div>
 
-        <!-- Field 4: Telegram Username (Telegram-ի անուն) -->
         <div>
-          <label for="tgUsername" class="block text-sm font-semibold text-tealBrand mb-2">
-            Telegram-ի անուն (@username)
-          </label>
+          <label for="tgUsername" data-i18n="tg_user" class="block text-sm font-semibold text-tealBrand mb-2"></label>
           <input type="text" id="tgUsername" name="tgUsername" required
             class="custom-input w-full px-4 py-3 rounded-xl text-base sm:text-sm font-medium text-gray-800 placeholder-gray-400"
             placeholder="@username">
-          <p class="text-red-500 text-xs mt-1 hidden" id="err-tgUsername">Խնդրում ենք մուտքագրել Telegram-ի անունը</p>
+          <p class="text-red-500 text-xs mt-1 hidden" id="err-tgUsername" data-i18n="err_tg"></p>
         </div>
 
-        <!-- Field 5: Telegram Phone (Telegram-ի հեռախոսահամար) -->
         <div>
-          <label for="tgPhone" class="block text-sm font-semibold text-tealBrand mb-2">
-            Telegram-ի հեռախոսահամար
-          </label>
+          <label for="tgPhone" data-i18n="tg_phone" class="block text-sm font-semibold text-tealBrand mb-2"></label>
           <input type="tel" id="tgPhone" inputmode="tel" autocomplete="tel" name="tgPhone" required
             class="custom-input w-full px-4 py-3 rounded-xl text-base sm:text-sm font-medium text-gray-800 placeholder-gray-400"
             placeholder="+374 99 000000">
-          <p class="text-red-500 text-xs mt-1 hidden" id="err-tgPhone">Խնդրում ենք մուտքագրել Telegram-ի հեռախոսահամարը</p>
+          <p class="text-red-500 text-xs mt-1 hidden" id="err-tgPhone" data-i18n="err_tgphone"></p>
         </div>
 
-        <!-- Field: Plan -->
+        <!-- Plan (option values stay Armenian so stored data is consistent) -->
         <div>
-          <label for="plan" class="block text-sm font-semibold text-tealBrand mb-2">
-            Փաթեթ
-          </label>
-          <select id="plan" name="plan" required class="custom-input w-full px-4 py-3 rounded-xl text-base sm:text-sm font-medium text-gray-800">
-            <option value="">Ընտրեք փաթեթը</option>
-            <option value="Առավոտն ինձ հետ — 🧪 1 շաբաթ (փորձնական)">Առավոտն ինձ հետ — 🧪 1 շաբաթ (փորձնական) · 2,500 ֏</option>
-            <option value="Առավոտն ինձ հետ — 🗓 1 ամիս">Առավոտն ինձ հետ — 🗓 1 ամիս · 8,900 ֏</option>
-            <option value="Առավոտն ինձ հետ — 🗓 3 ամիս">Առավոտն ինձ հետ — 🗓 3 ամիս · 24,000 ֏</option>
-            <option value="Առողջ մեջք — 🧪 1 շաբաթ (փորձնական)">Առողջ մեջք — 🧪 1 շաբաթ (փորձնական) · 3,000 ֏</option>
-            <option value="Առողջ մեջք — 🗓 1 ամիս">Առողջ մեջք — 🗓 1 ամիս · 9,900 ֏</option>
-            <option value="Առողջ մեջք — 🗓 3 ամիս">Առողջ մեջք — 🗓 3 ամիս · 27,000 ֏</option>
-            <option value="COMBO — 1 ամիս">COMBO — 1 ամիս · 15,900 ֏</option>
-            <option value="COMBO — 3 ամիս">COMBO — 3 ամիս · 43,000 ֏</option>
-          </select>
-          <p class="text-red-500 text-xs mt-1 hidden" id="err-plan">Խնդրում ենք ընտրել փաթեթը</p>
+          <label for="plan" data-i18n="plan" class="block text-sm font-semibold text-tealBrand mb-2"></label>
+          <select id="plan" name="plan" required class="custom-input w-full px-4 py-3 rounded-xl text-base sm:text-sm font-medium text-gray-800"></select>
+          <p class="text-red-500 text-xs mt-1 hidden" id="err-plan" data-i18n="err_plan"></p>
         </div>
 
-        <!-- Payment Card Info (above receipt upload) -->
+        <!-- Payment Card Info -->
         <div>
-          <label class="block text-sm font-semibold text-tealBrand mb-2">
-            Վճարման քարտ
-          </label>
+          <label data-i18n="pay_card" class="block text-sm font-semibold text-tealBrand mb-2"></label>
           <div class="pay-card rounded-2xl p-5 text-white form-card-shadow">
             <div class="flex items-center justify-between mb-4">
-              <span class="text-xs font-semibold uppercase tracking-wider text-white/80">Արարատ բանկ</span>
+              <span data-i18n="bank" class="text-xs font-semibold uppercase tracking-wider text-white/80"></span>
               <i class="fa-regular fa-credit-card text-xl text-white/80"></i>
             </div>
             <div class="flex items-center justify-between gap-3">
               <span id="cardNumber" class="text-lg sm:text-2xl font-bold tracking-widest select-all" style="font-variant-numeric: tabular-nums;">1510 0496 9094 6900</span>
               <button type="button" id="copyCardBtn" class="copy-btn shrink-0 bg-orangeBrand hover:bg-orangeHover text-white text-xs sm:text-sm font-bold rounded-lg px-3 py-2 transition-colors">
-                <i class="fa-regular fa-copy mr-1"></i><span id="copyBtnText">Պատճենել</span>
+                <i class="fa-regular fa-copy mr-1"></i><span id="copyBtnText" data-i18n="copy"></span>
               </button>
             </div>
-            <p class="text-[11px] text-white/70 mt-3">Կատարեք վճարումը վերոնշյալ քարտին և կցեք կտրոնը ստորև</p>
+            <p data-i18n="pay_note" class="text-[11px] text-white/70 mt-3"></p>
           </div>
         </div>
 
-        <!-- Field 6: Payment Receipt File Upload (Վճարման կտրոնի նկարը) -->
+        <!-- Receipt upload -->
         <div>
-          <label class="block text-sm font-semibold text-tealBrand mb-2">
-            Վճարման կտրոնի նկարը
-          </label>
-          
+          <label data-i18n="receipt_label" class="block text-sm font-semibold text-tealBrand mb-2"></label>
+
           <div id="dropZone" class="border-2 border-dashed border-tealBrand/40 bg-white hover:bg-tealBrand/5 transition-colors rounded-xl p-5 text-center cursor-pointer relative">
             <input type="file" id="receipt" name="receipt" accept="image/*,.pdf" class="hidden">
-            
+
             <div id="uploadPrompt" class="flex flex-col items-center justify-center py-2">
               <i class="fa-solid fa-cloud-arrow-up text-3xl text-orangeBrand mb-2"></i>
-              <p class="text-sm font-semibold text-tealBrand">Կցել վճարման կտրոնը</p>
-              <p class="text-xs text-gray-500 mt-1">Սեղմեք կամ քաշեք ֆայլը այստեղ</p>
+              <p data-i18n="attach" class="text-sm font-semibold text-tealBrand"></p>
+              <p data-i18n="drop_hint" class="text-xs text-gray-500 mt-1"></p>
               <span class="text-[11px] text-gray-400 mt-1">PNG, JPG, JPEG, PDF</span>
             </div>
 
-            <!-- Preview Container -->
             <div id="previewContainer" class="hidden flex-col items-center justify-center">
               <div class="relative mb-2">
-                <img id="imagePreview" src="" alt="Կտրոնի նախադիտում" class="max-h-36 rounded-lg border border-gray-200 object-contain hidden">
+                <img id="imagePreview" src="" alt="" class="max-h-36 rounded-lg border border-gray-200 object-contain hidden">
                 <div id="pdfPreview" class="hidden flex-col items-center p-3 bg-gray-50 rounded-lg border border-gray-200">
                   <i class="fa-solid fa-file-pdf text-3xl text-red-500 mb-1"></i>
                   <span id="pdfFileName" class="text-xs text-gray-700 font-medium truncate max-w-[180px]"></span>
@@ -433,45 +348,47 @@
               </div>
               <p id="fileDetails" class="text-xs font-bold text-tealBrand mb-2"></p>
               <button type="button" id="removeFileBtn" class="text-xs text-orangeBrand hover:text-orangeHover font-semibold bg-orangeBrand/10 px-3 py-1 rounded-md transition-colors">
-                <i class="fa-solid fa-trash-can mr-1"></i> Հեռացնել ֆայլը
+                <i class="fa-solid fa-trash-can mr-1"></i><span data-i18n="remove_file"></span>
               </button>
             </div>
           </div>
-          <p class="text-red-500 text-xs mt-1 hidden" id="err-receipt">Խնդրում ենք կցել վճարման կտրոնի նկարը</p>
+          <p class="text-red-500 text-xs mt-1 hidden" id="err-receipt" data-i18n="err_receipt"></p>
         </div>
 
-        <!-- Submit Button: "Գրանցվել Հիմա" -->
         <div class="pt-4">
-          <button type="submit" id="submitBtn" class="btn-spine-accent w-full bg-orangeBrand hover:bg-orangeHover text-white font-extrabold py-4 px-6 rounded-xl shadow-lg shadow-orangeBrand/25 transition-all transform active:scale-[0.99] text-base sm:text-lg tracking-wide uppercase">
-            Գրանցվել Հիմա
-          </button>
+          <button type="submit" id="submitBtn" data-i18n="submit" class="btn-spine-accent w-full bg-orangeBrand hover:bg-orangeHover text-white font-extrabold py-4 px-6 rounded-xl shadow-lg shadow-orangeBrand/25 transition-all transform active:scale-[0.99] text-base sm:text-lg tracking-wide uppercase"></button>
         </div>
 
       </form>
     </div>
   </main>
 
-  <!-- Bottom Divider Line -->
+  <!-- Terms of use -->
+  <section id="terms" class="container mx-auto px-4 pb-4 relative z-10 max-w-4xl scroll-mt-4">
+    <div class="bg-white rounded-2xl p-5 sm:p-8 border border-tealBrand/15 form-card-shadow">
+      <h2 data-i18n="terms_title" class="text-xl sm:text-2xl font-extrabold text-tealBrand text-center mb-5"></h2>
+      <div id="termsList" class="space-y-4 text-sm text-gray-700 leading-relaxed"></div>
+    </div>
+  </section>
+
   <div class="w-[calc(100%-2rem)] max-w-4xl mx-auto border-t border-tealBrand/20 my-6"></div>
 
-  <!-- Page Footer -->
   <footer class="w-full px-4 pb-6 text-center text-xs text-tealBrand/70 font-medium relative z-10">
-    <p>© 2026 ՖԼԵՔՍԻԶ ՕՆԼԱՅՆ ՍՏՈՒԴԻԱ: Բոլոր իրավունքները պաշտպանված են:</p>
+    <p data-i18n="footer"></p>
+    <p class="mt-1"><a href="#terms" data-i18n="nav_terms" class="underline hover:text-orangeBrand"></a></p>
   </footer>
 
-  <!-- Modal Dialog for Submission Success -->
+  <!-- Success Modal -->
   <div id="successModal" class="fixed inset-0 bg-tealBrand/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
     <div class="bg-white rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 text-center shadow-2xl border border-gray-100 transform scale-95 transition-transform duration-300" id="modalCard">
       <div class="w-16 h-16 bg-tealBg text-tealBrand rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
         <i class="fa-solid fa-circle-check text-orangeBrand"></i>
       </div>
-      <h3 class="text-xl font-extrabold text-tealBrand mb-2">Գրանցումն ընդունված է</h3>
+      <h3 data-i18n="modal_title" class="text-xl font-extrabold text-tealBrand mb-2"></h3>
       <p class="text-sm text-gray-600 mb-6 leading-relaxed">
-        Շնորհակալություն, <span id="modalUserName" class="font-bold text-tealBrand"></span>: Ձեր հայտը և վճարման կտրոնը հաջողությամբ ուղարկվել են: Մեր թիմը շուտով կապ կհաստատի Ձեզ հետ Telegram-ով:
+        <span data-i18n="modal_thanks"></span> <span id="modalUserName" class="font-bold text-tealBrand"></span><span data-i18n="modal_rest"></span>
       </p>
-      <button id="closeModalBtn" class="w-full bg-tealBrand hover:bg-tealHover text-white font-bold py-3 px-4 rounded-xl transition-colors text-sm uppercase tracking-wider">
-        ԼԱՎ
-      </button>
+      <button id="closeModalBtn" data-i18n="modal_ok" class="w-full bg-tealBrand hover:bg-tealHover text-white font-bold py-3 px-4 rounded-xl transition-colors text-sm uppercase tracking-wider"></button>
     </div>
   </div>
 
@@ -495,28 +412,232 @@
   </script>
 
   <script>
+    // ================= Translations =================
+    const S = (a, b) => `<s class="text-white/60">${a}</s> ➡️ <b>${b}</b>`;
+    const T = {
+      hy: {
+        page_title: 'ՖԼԵՔՍԻԶ ՕՆԼԱՅՆ ՍՏՈՒԴԻԱ | Գրանցում',
+        nav_home: 'Գլխավոր', nav_courses: 'Դասընթացներ', nav_terms: 'Օգտագործման պայմաններ',
+        courses_title: 'Դասընթացներ և գներ',
+        c1_title: '🌅 1. «Առավոտն ինձ հետ»', c1_sub: 'Էներգիայի և առավոտյան թարմության համար',
+        dur15: '⏱ Տևողությունը՝ 15 րոպե', freq1: '📅 Հաճախականությունը՝ Երկուշաբթիից Շաբաթ',
+        c2_title: '🧘‍♀️ 2. «Առողջ մեջք»', c2_sub: 'Վերականգնողական մարզումներ մեջքի թեթևության և կեցվածքի համար',
+        dur30: '⏱ Տևողությունը՝ 30 րոպե', freq2: '📅 Հաճախականությունը՝ Շաբաթական 2 անգամ',
+        price_lbl: '💰 Արժեքը՝',
+        wk: '🧪 1 շաբաթ (փորձնական)', m1: '🗓 1 ամիս', m3: '🗓 3 ամիս',
+        c1n: 'Առավոտն ինձ հետ', c2n: 'Առողջ մեջք',
+        combo_title: '🌟 🔥 ԽՆԱՅՈՂ ՓԱԹԵԹ (COMBO)',
+        combo_sub: '«Առավոտն ինձ հետ» + «Առողջ մեջք» — Մաքսիմալ արդյունք և լավագույն առաջարկ',
+        combo1: `🗓 1 ամիս՝ ${S('18,800 ֏', '15,900 ֏')} <span class="text-xs text-orange-200">(խնայում եք 2,900 ֏)</span>`,
+        combo3: `🗓 3 ամիս՝ ${S('51,000 ֏', '43,000 ֏')} <span class="text-xs text-orange-200">(խնայում եք 8,000 ֏)</span>`,
+        choose: 'Ընտրել',
+        price_hint: 'Սեղմեք գնի վրա՝ փաթեթն ընտրելու և գրանցվելու համար',
+        reg_title: 'Գրանցում',
+        first_name: 'Անուն', ph_first: 'Մուտքագրեք Ձեր անունը',
+        last_name: 'Ազգանուն', ph_last: 'Մուտքագրեք Ձեր ազգանունը',
+        phone: 'Հեռախոսահամար', tg_user: 'Telegram-ի անուն (@username)', tg_phone: 'Telegram-ի հեռախոսահամար',
+        plan: 'Փաթեթ', choose_plan: 'Ընտրեք փաթեթը',
+        pay_card: 'Վճարման քարտ', bank: 'Արարատ բանկ', copy: 'Պատճենել', copied: 'Պատճենվեց ✓',
+        pay_note: 'Կատարեք վճարումը վերոնշյալ քարտին և կցեք կտրոնը ստորև',
+        receipt_label: 'Վճարման կտրոնի նկարը', attach: 'Կցել վճարման կտրոնը',
+        drop_hint: 'Սեղմեք կամ քաշեք ֆայլը այստեղ', remove_file: 'Հեռացնել ֆայլը', preview_alt: 'Կտրոնի նախադիտում',
+        submit: 'Գրանցվել Հիմա', sending: 'Ուղարկվում է...',
+        err_first: 'Խնդրում ենք լրացնել Անունը', err_last: 'Խնդրում ենք լրացնել Ազգանունը',
+        err_phone: 'Խնդրում ենք մուտքագրել հեռախոսահամարը', err_tg: 'Խնդրում ենք մուտքագրել Telegram-ի անունը',
+        err_tgphone: 'Խնդրում ենք մուտքագրել Telegram-ի հեռախոսահամարը', err_plan: 'Խնդրում ենք ընտրել փաթեթը',
+        err_receipt: 'Խնդրում ենք կցել վճարման կտրոնի նկարը',
+        alert_fail: 'Չհաջողվեց ուղարկել հայտը։ Խնդրում ենք ստուգել կապը և կրկին փորձել։',
+        modal_title: 'Գրանցումն ընդունված է', modal_thanks: 'Շնորհակալություն,',
+        modal_rest: ': Ձեր հայտը և վճարման կտրոնը հաջողությամբ ուղարկվել են: Մեր թիմը շուտով կապ կհաստատի Ձեզ հետ Telegram-ով:',
+        modal_ok: 'ԼԱՎ',
+        terms_title: 'Օգտագործման պայմաններ',
+        terms: [
+          ['1. Ընդհանուր դրույթներ', 'Գրանցվելով և վճարելով՝ դուք համաձայնում եք սույն պայմաններին։ ՖԼԵՔՍԻԶ ՕՆԼԱՅՆ ՍՏՈՒԴԻԱ-ն կազմակերպում է առցանց մարզումներ։'],
+          ['2. Ծառայությունների մատուցում', 'Մարզումները անցկացվում են առցանց՝ ընտրված փաթեթի ժամկետի ընթացքում։ Մուտքը (Telegram-ի միջոցով) տրամադրվում է վճարումը հաստատելուց հետո։'],
+          ['3. Վճարում', 'Վճարումը կատարվում է նշված քարտին փոխանցմամբ։ Գրանցման ժամանակ պարտադիր է կցել վճարման կտրոնը։ Փաթեթի գինը ստուգեք ընտրելիս։'],
+          ['4. Գումարի վերադարձ', 'Մուտքը տրամադրվելուց հետո վճարված գումարը, որպես կանոն, չի վերադարձվում։ Բացառիկ դեպքերը քննարկվում են անհատապես ադմինիստրացիայի հետ։'],
+          ['5. Առողջություն և պատասխանատվություն', 'Մարզումները բժշկական խորհրդատվություն կամ բուժում չեն։ Սկսելուց առաջ խորհրդակցեք բժշկի հետ, հատկապես մեջքի հիվանդությունների, վնասվածքների կամ հղիության դեպքում։ Ցավի կամ վատ ինքնազգացողության դեպքում դադարեցրեք մարզումը։ Մասնակիցը պատասխանատու է իր առողջության համար։'],
+          ['6. Անձնական տվյալներ', 'Ձեր անունը, հեռախոսահամարը, Telegram-ի տվյալները և վճարման կտրոնը օգտագործվում են միայն գրանցման և Ձեզ հետ կապ հաստատելու նպատակով և չեն փոխանցվում երրորդ անձանց։'],
+          ['7. Նյութեր և փոփոխություններ', 'Մարզումների նյութերը նախատեսված են անձնական օգտագործման համար. արգելվում է դրանք վերարտադրել, տարածել կամ հրապարակել։ Ստուդիան իրավունք է վերապահում փոփոխել գրաֆիկը և գները՝ նախապես տեղեկացնելով։']
+        ],
+        footer: '© 2026 ՖԼԵՔՍԻԶ ՕՆԼԱՅՆ ՍՏՈՒԴԻԱ: Բոլոր իրավունքները պաշտպանված են:'
+      },
+
+      ru: {
+        page_title: 'Flexiz Online Studio | Регистрация',
+        nav_home: 'Главная', nav_courses: 'Курсы', nav_terms: 'Условия использования',
+        courses_title: 'Курсы и цены',
+        c1_title: '🌅 1. «Утро со мной»', c1_sub: 'Для энергии и утренней бодрости',
+        dur15: '⏱ Длительность: 15 минут', freq1: '📅 Периодичность: с понедельника по субботу',
+        c2_title: '🧘‍♀️ 2. «Здоровая спина»', c2_sub: 'Восстановительные тренировки для лёгкости в спине и правильной осанки',
+        dur30: '⏱ Длительность: 30 минут', freq2: '📅 Периодичность: 2 раза в неделю',
+        price_lbl: '💰 Стоимость:',
+        wk: '🧪 1 неделя (пробная)', m1: '🗓 1 месяц', m3: '🗓 3 месяца',
+        c1n: 'Утро со мной', c2n: 'Здоровая спина',
+        combo_title: '🌟 🔥 ВЫГОДНЫЙ ПАКЕТ (COMBO)',
+        combo_sub: '«Утро со мной» + «Здоровая спина» — максимальный результат и лучшее предложение',
+        combo1: `🗓 1 месяц: ${S('18,800 ֏', '15,900 ֏')} <span class="text-xs text-orange-200">(вы экономите 2,900 ֏)</span>`,
+        combo3: `🗓 3 месяца: ${S('51,000 ֏', '43,000 ֏')} <span class="text-xs text-orange-200">(вы экономите 8,000 ֏)</span>`,
+        choose: 'Выбрать',
+        price_hint: 'Нажмите на цену, чтобы выбрать пакет и зарегистрироваться',
+        reg_title: 'Регистрация',
+        first_name: 'Имя', ph_first: 'Введите ваше имя',
+        last_name: 'Фамилия', ph_last: 'Введите вашу фамилию',
+        phone: 'Номер телефона', tg_user: 'Имя в Telegram (@username)', tg_phone: 'Номер телефона в Telegram',
+        plan: 'Пакет', choose_plan: 'Выберите пакет',
+        pay_card: 'Карта для оплаты', bank: 'Арарат банк', copy: 'Копировать', copied: 'Скопировано ✓',
+        pay_note: 'Совершите оплату на указанную карту и прикрепите чек ниже',
+        receipt_label: 'Фото чека об оплате', attach: 'Прикрепить чек об оплате',
+        drop_hint: 'Нажмите или перетащите файл сюда', remove_file: 'Удалить файл', preview_alt: 'Предпросмотр чека',
+        submit: 'Зарегистрироваться', sending: 'Отправка...',
+        err_first: 'Пожалуйста, заполните имя', err_last: 'Пожалуйста, заполните фамилию',
+        err_phone: 'Пожалуйста, введите номер телефона', err_tg: 'Пожалуйста, введите имя в Telegram',
+        err_tgphone: 'Пожалуйста, введите номер телефона в Telegram', err_plan: 'Пожалуйста, выберите пакет',
+        err_receipt: 'Пожалуйста, прикрепите фото чека об оплате',
+        alert_fail: 'Не удалось отправить заявку. Проверьте соединение и попробуйте ещё раз.',
+        modal_title: 'Регистрация принята', modal_thanks: 'Спасибо,',
+        modal_rest: '. Ваша заявка и чек успешно отправлены. Наша команда скоро свяжется с вами в Telegram.',
+        modal_ok: 'ОК',
+        terms_title: 'Условия использования',
+        terms: [
+          ['1. Общие положения', 'Регистрируясь и оплачивая, вы соглашаетесь с настоящими условиями. Flexiz Online Studio проводит онлайн-тренировки.'],
+          ['2. Оказание услуг', 'Тренировки проходят онлайн в течение срока выбранного пакета. Доступ (через Telegram) предоставляется после подтверждения оплаты.'],
+          ['3. Оплата', 'Оплата производится переводом на указанную карту. При регистрации необходимо прикрепить чек об оплате. Стоимость пакета уточняйте при выборе.'],
+          ['4. Возврат средств', 'После предоставления доступа оплаченная сумма, как правило, не возвращается. Исключительные случаи рассматриваются индивидуально с администрацией.'],
+          ['5. Здоровье и ответственность', 'Тренировки не являются медицинской консультацией или лечением. Перед началом проконсультируйтесь с врачом, особенно при заболеваниях спины, травмах или беременности. При боли или плохом самочувствии прекратите тренировку. Участник несёт ответственность за своё здоровье.'],
+          ['6. Персональные данные', 'Ваше имя, номер телефона, данные Telegram и чек об оплате используются только для регистрации и связи с вами и не передаются третьим лицам.'],
+          ['7. Материалы и изменения', 'Материалы тренировок предназначены для личного использования; запрещено воспроизводить, распространять или публиковать их. Студия оставляет за собой право изменять расписание и цены, предварительно уведомив об этом.']
+        ],
+        footer: '© 2026 Flexiz Online Studio. Все права защищены.'
+      },
+
+      en: {
+        page_title: 'Flexiz Online Studio | Registration',
+        nav_home: 'Home', nav_courses: 'Courses', nav_terms: 'Terms of Use',
+        courses_title: 'Courses & Prices',
+        c1_title: '🌅 1. "Morning With Me"', c1_sub: 'For energy and a fresh start to your morning',
+        dur15: '⏱ Duration: 15 minutes', freq1: '📅 Frequency: Monday to Saturday',
+        c2_title: '🧘‍♀️ 2. "Healthy Back"', c2_sub: 'Restorative workouts for a lighter back and better posture',
+        dur30: '⏱ Duration: 30 minutes', freq2: '📅 Frequency: 2 times a week',
+        price_lbl: '💰 Price:',
+        wk: '🧪 1 week (trial)', m1: '🗓 1 month', m3: '🗓 3 months',
+        c1n: 'Morning With Me', c2n: 'Healthy Back',
+        combo_title: '🌟 🔥 SPECIAL BUNDLE (COMBO)',
+        combo_sub: '"Morning With Me" + "Healthy Back" — maximum results and the best offer',
+        combo1: `🗓 1 month: ${S('18,800 ֏', '15,900 ֏')} <span class="text-xs text-orange-200">(you save 2,900 ֏)</span>`,
+        combo3: `🗓 3 months: ${S('51,000 ֏', '43,000 ֏')} <span class="text-xs text-orange-200">(you save 8,000 ֏)</span>`,
+        choose: 'Select',
+        price_hint: 'Click a price to choose a plan and register',
+        reg_title: 'Registration',
+        first_name: 'First name', ph_first: 'Enter your first name',
+        last_name: 'Last name', ph_last: 'Enter your last name',
+        phone: 'Phone number', tg_user: 'Telegram username (@username)', tg_phone: 'Telegram phone number',
+        plan: 'Plan', choose_plan: 'Choose a plan',
+        pay_card: 'Payment card', bank: 'Ararat Bank', copy: 'Copy', copied: 'Copied ✓',
+        pay_note: 'Make the payment to the card above and attach the receipt below',
+        receipt_label: 'Payment receipt photo', attach: 'Attach payment receipt',
+        drop_hint: 'Click or drag the file here', remove_file: 'Remove file', preview_alt: 'Receipt preview',
+        submit: 'Register Now', sending: 'Sending...',
+        err_first: 'Please enter your first name', err_last: 'Please enter your last name',
+        err_phone: 'Please enter your phone number', err_tg: 'Please enter your Telegram username',
+        err_tgphone: 'Please enter your Telegram phone number', err_plan: 'Please choose a plan',
+        err_receipt: 'Please attach the payment receipt photo',
+        alert_fail: 'Could not send your registration. Please check your connection and try again.',
+        modal_title: 'Registration received', modal_thanks: 'Thank you,',
+        modal_rest: '. Your registration and payment receipt were sent successfully. Our team will contact you on Telegram soon.',
+        modal_ok: 'OK',
+        terms_title: 'Terms of Use',
+        terms: [
+          ['1. General', 'By registering and paying, you agree to these terms. Flexiz Online Studio provides online workouts.'],
+          ['2. Services', 'Workouts take place online for the duration of the selected plan. Access (via Telegram) is granted once your payment is confirmed.'],
+          ['3. Payment', 'Payment is made by transfer to the card shown. A payment receipt must be attached when registering. Please check the plan price when selecting it.'],
+          ['4. Refunds', 'Once access has been granted, the amount paid is generally non-refundable. Exceptional cases are reviewed individually with the administration.'],
+          ['5. Health & responsibility', 'Workouts are not medical advice or treatment. Consult a doctor before starting, especially if you have back problems, injuries or are pregnant. Stop exercising if you feel pain or unwell. Each participant is responsible for their own health.'],
+          ['6. Personal data', 'Your name, phone number, Telegram details and payment receipt are used only for registration and to contact you, and are not shared with third parties.'],
+          ['7. Materials & changes', 'Workout materials are for personal use only; copying, distributing or publishing them is prohibited. The studio may change the schedule and prices with prior notice.']
+        ],
+        footer: '© 2026 Flexiz Online Studio. All rights reserved.'
+      }
+    };
+
+    // Plans: value stays Armenian (what is stored in the database)
+    const PLANS = [
+      { v: 'Առավոտն ինձ հետ — 🧪 1 շաբաթ (փորձնական)', c: 'c1n', d: 'wk', p: '2,500' },
+      { v: 'Առավոտն ինձ հետ — 🗓 1 ամիս', c: 'c1n', d: 'm1', p: '8,900' },
+      { v: 'Առավոտն ինձ հետ — 🗓 3 ամիս', c: 'c1n', d: 'm3', p: '24,000' },
+      { v: 'Առողջ մեջք — 🧪 1 շաբաթ (փորձնական)', c: 'c2n', d: 'wk', p: '3,000' },
+      { v: 'Առողջ մեջք — 🗓 1 ամիս', c: 'c2n', d: 'm1', p: '9,900' },
+      { v: 'Առողջ մեջք — 🗓 3 ամիս', c: 'c2n', d: 'm3', p: '27,000' },
+      { v: 'COMBO — 1 ամիս', c: null, d: 'm1', p: '15,900' },
+      { v: 'COMBO — 3 ամիս', c: null, d: 'm3', p: '43,000' }
+    ];
+
     document.addEventListener('DOMContentLoaded', () => {
-      const form = document.getElementById('flexizRegistrationForm');
-      const dropZone = document.getElementById('dropZone');
-      const fileInput = document.getElementById('receipt');
-      const uploadPrompt = document.getElementById('uploadPrompt');
-      const previewContainer = document.getElementById('previewContainer');
-      const imagePreview = document.getElementById('imagePreview');
-      const pdfPreview = document.getElementById('pdfPreview');
-      const pdfFileName = document.getElementById('pdfFileName');
-      const fileDetails = document.getElementById('fileDetails');
-      const removeFileBtn = document.getElementById('removeFileBtn');
+      const $ = (id) => document.getElementById(id);
+      const form = $('flexizRegistrationForm');
+      const dropZone = $('dropZone');
+      const fileInput = $('receipt');
+      const uploadPrompt = $('uploadPrompt');
+      const previewContainer = $('previewContainer');
+      const imagePreview = $('imagePreview');
+      const pdfPreview = $('pdfPreview');
+      const pdfFileName = $('pdfFileName');
+      const fileDetails = $('fileDetails');
+      const removeFileBtn = $('removeFileBtn');
+      const planSelect = $('plan');
 
-      const successModal = document.getElementById('successModal');
-      const modalCard = document.getElementById('modalCard');
-      const closeModalBtn = document.getElementById('closeModalBtn');
-      const modalUserName = document.getElementById('modalUserName');
+      const successModal = $('successModal');
+      const modalCard = $('modalCard');
+      const closeModalBtn = $('closeModalBtn');
+      const modalUserName = $('modalUserName');
 
-      // Copy card number
+      // ---------- Language ----------
+      let lang = 'hy';
+      try { const saved = localStorage.getItem('flexizLang'); if (saved && T[saved]) lang = saved; } catch (_) {}
+      const t = (k) => (T[lang] && T[lang][k] !== undefined ? T[lang][k] : T.hy[k]);
+
+      function renderPlans() {
+        const current = planSelect.value;
+        planSelect.innerHTML = '';
+        const first = document.createElement('option');
+        first.value = '';
+        first.textContent = t('choose_plan');
+        planSelect.appendChild(first);
+        PLANS.forEach((pl) => {
+          const o = document.createElement('option');
+          o.value = pl.v;
+          o.textContent = `${pl.c ? t(pl.c) : 'COMBO'} — ${t(pl.d)} · ${pl.p} ֏`;
+          planSelect.appendChild(o);
+        });
+        planSelect.value = current;
+      }
+
+      function renderTerms() {
+        $('termsList').innerHTML = t('terms').map(([h, p]) =>
+          `<div><h3 class="font-bold text-tealBrand mb-1">${h}</h3><p>${p}</p></div>`).join('');
+      }
+
+      function setLang(l) {
+        lang = l;
+        try { localStorage.setItem('flexizLang', l); } catch (_) {}
+        document.documentElement.lang = l;
+        document.title = t('page_title');
+        document.querySelectorAll('[data-i18n]').forEach((el) => { el.textContent = t(el.dataset.i18n); });
+        document.querySelectorAll('[data-i18n-html]').forEach((el) => { el.innerHTML = t(el.dataset.i18nHtml); });
+        document.querySelectorAll('[data-i18n-ph]').forEach((el) => { el.placeholder = t(el.dataset.i18nPh); });
+        imagePreview.alt = t('preview_alt');
+        renderPlans();
+        renderTerms();
+        document.querySelectorAll('.lang-btn').forEach((b) => b.classList.toggle('active', b.dataset.lang === l));
+      }
+      document.querySelectorAll('.lang-btn').forEach((b) => b.addEventListener('click', () => setLang(b.dataset.lang)));
+      setLang(lang);
+
+      // ---------- Copy card number ----------
       const CARD_NUMBER = '1510049690946900';
-      const copyCardBtn = document.getElementById('copyCardBtn');
-      const copyBtnText = document.getElementById('copyBtnText');
-      document.getElementById('cardNumber').textContent = CARD_NUMBER.replace(/(\d{4})(?=\d)/g, '$1 ');
+      const copyCardBtn = $('copyCardBtn');
+      const copyBtnText = $('copyBtnText');
+      $('cardNumber').textContent = CARD_NUMBER.replace(/(\d{4})(?=\d)/g, '$1 ');
 
       function fallbackCopy(text) {
         const ta = document.createElement('textarea');
@@ -541,25 +662,25 @@
         } catch (_) {
           fallbackCopy(CARD_NUMBER);
         }
-        copyBtnText.textContent = 'Պատճենվեց ✓';
+        copyBtnText.textContent = t('copied');
         copyCardBtn.classList.add('copied');
         setTimeout(() => {
-          copyBtnText.textContent = 'Պատճենել';
+          copyBtnText.textContent = t('copy');
           copyCardBtn.classList.remove('copied');
         }, 2000);
       });
 
-      // Drag and Drop Event Handling
-      ['dragenter', 'dragover'].forEach(eventName => {
-        dropZone.addEventListener(eventName, (e) => {
+      // ---------- Drag and drop ----------
+      ['dragenter', 'dragover'].forEach((ev) => {
+        dropZone.addEventListener(ev, (e) => {
           e.preventDefault();
           e.stopPropagation();
           dropZone.classList.add('drag-active');
         }, false);
       });
 
-      ['dragleave', 'drop'].forEach(eventName => {
-        dropZone.addEventListener(eventName, (e) => {
+      ['dragleave', 'drop'].forEach((ev) => {
+        dropZone.addEventListener(ev, (e) => {
           e.preventDefault();
           e.stopPropagation();
           dropZone.classList.remove('drag-active');
@@ -567,8 +688,7 @@
       });
 
       dropZone.addEventListener('drop', (e) => {
-        const dt = e.dataTransfer;
-        const files = dt.files;
+        const files = e.dataTransfer.files;
         if (files && files.length > 0) {
           fileInput.files = files;
           processSelectedFile(files[0]);
@@ -588,7 +708,7 @@
       });
 
       function processSelectedFile(file) {
-        document.getElementById('err-receipt').classList.add('hidden');
+        $('err-receipt').classList.add('hidden');
         uploadPrompt.classList.add('hidden');
         previewContainer.classList.remove('hidden');
         previewContainer.classList.add('flex');
@@ -620,18 +740,7 @@
         previewContainer.classList.remove('flex');
       });
 
-      // Plan buttons preselect the dropdown
-      const planSelect = document.getElementById('plan');
-      document.querySelectorAll('.plan-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const opt = Array.from(planSelect.options).find(o => o.value === btn.dataset.plan);
-          if (opt) planSelect.value = opt.value;
-          document.getElementById('err-plan').classList.add('hidden');
-          document.getElementById('flexizRegistrationForm').scrollIntoView({ behavior: 'smooth', block: 'center' });
-        });
-      });
-
-      // ---- Cloudinary ----
+      // ---------- Cloudinary ----------
       const CLOUD_NAME = 'mrqeiihp';
       const UPLOAD_PRESET = 'flexiz';
 
@@ -646,7 +755,7 @@
         return json;
       }
 
-      // Shrink the receipt photo before upload (max 1200px, JPEG 60%) -> usually 100-250 KB
+      // Shrink the receipt photo before upload (max 1200px, JPEG 60%)
       async function compressImage(file) {
         if (!file.type.startsWith('image/')) return file;
         try {
@@ -668,13 +777,9 @@
       }
 
       async function sendRegistration() {
-        const val = (i) => document.getElementById(i).value.trim();
-
-        // 1) compressed receipt -> Cloudinary
+        const val = (i) => $(i).value.trim();
         const small = await compressImage(fileInput.files[0]);
         const img = await cloudUpload('auto', small, { tags: 'flexiz_receipt' });
-
-        // 2) registration data -> Firebase Firestore
         await window.fbSaveRegistration({
           firstName: val('firstName'),
           lastName: val('lastName'),
@@ -686,7 +791,17 @@
         });
       }
 
-      // Form Submit & Validation
+      // ---------- Plan buttons preselect the dropdown ----------
+      document.querySelectorAll('.plan-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const opt = Array.from(planSelect.options).find((o) => o.value === btn.dataset.plan);
+          if (opt) planSelect.value = opt.value;
+          $('err-plan').classList.add('hidden');
+          form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+      });
+
+      // ---------- Submit & validation ----------
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
         let isFormValid = true;
@@ -700,10 +815,9 @@
           { id: 'plan', errId: 'err-plan' }
         ];
 
-        inputFields.forEach(item => {
-          const input = document.getElementById(item.id);
-          const errMessage = document.getElementById(item.errId);
-
+        inputFields.forEach((item) => {
+          const input = $(item.id);
+          const errMessage = $(item.errId);
           if (!input.value.trim()) {
             errMessage.classList.remove('hidden');
             input.classList.add('border-red-500');
@@ -714,38 +828,34 @@
           }
         });
 
-        // Receipt Upload Validation
         if (!fileInput.files || fileInput.files.length === 0) {
-          document.getElementById('err-receipt').classList.remove('hidden');
+          $('err-receipt').classList.remove('hidden');
           isFormValid = false;
         } else {
-          document.getElementById('err-receipt').classList.add('hidden');
+          $('err-receipt').classList.add('hidden');
         }
 
         if (isFormValid) {
-          const fName = document.getElementById('firstName').value;
-          const lName = document.getElementById('lastName').value;
+          const fName = $('firstName').value;
+          const lName = $('lastName').value;
 
-          // Send to Cloudinary
-          const submitBtn = document.getElementById('submitBtn');
-          const origText = submitBtn.textContent;
+          const submitBtn = $('submitBtn');
           submitBtn.disabled = true;
-          submitBtn.textContent = 'Ուղարկվում է...';
+          submitBtn.textContent = t('sending');
           try {
             await sendRegistration();
           } catch (err) {
             console.error(err);
-            alert('Չհաջողվեց ուղարկել հայտը։ Խնդրում ենք ստուգել կապը և կրկին փորձել։');
+            alert(t('alert_fail'));
             submitBtn.disabled = false;
-            submitBtn.textContent = origText;
+            submitBtn.textContent = t('submit');
             return;
           }
           submitBtn.disabled = false;
-          submitBtn.textContent = origText;
+          submitBtn.textContent = t('submit');
 
           modalUserName.textContent = `${fName} ${lName}`;
 
-          // Show Success Modal
           successModal.classList.remove('hidden');
           setTimeout(() => {
             successModal.classList.remove('opacity-0');
@@ -753,7 +863,6 @@
             modalCard.classList.add('scale-100');
           }, 10);
 
-          // Reset Form
           form.reset();
           removeFileBtn.click();
         }
