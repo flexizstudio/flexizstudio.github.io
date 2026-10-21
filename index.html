@@ -306,7 +306,7 @@
           <p class="text-red-500 text-xs mt-1 hidden" id="err-plan" data-i18n="err_plan"></p>
         </div>
 
-        <!-- Payment Card Info -->
+        <!-- Payment account info -->
         <div>
           <label data-i18n="pay_card" class="block text-sm font-semibold text-tealBrand mb-2"></label>
           <div class="pay-card rounded-2xl p-5 text-white form-card-shadow">
@@ -437,8 +437,8 @@
         last_name: 'Ազգանուն', ph_last: 'Մուտքագրեք Ձեր ազգանունը',
         phone: 'Հեռախոսահամար', tg_user: 'Telegram-ի անուն (@username)', tg_phone: 'Telegram-ի հեռախոսահամար',
         plan: 'Փաթեթ', choose_plan: 'Ընտրեք փաթեթը',
-        pay_card: 'Վճարման քարտ', bank: 'Արարատ բանկ', copy: 'Պատճենել', copied: 'Պատճենվեց ✓',
-        pay_note: 'Կատարեք վճարումը վերոնշյալ քարտին և կցեք կտրոնը ստորև',
+        pay_card: 'Վճարման հաշվեհամար', bank: 'Արարատ բանկ', copy: 'Պատճենել', copied: 'Պատճենվեց ✓',
+        pay_note: 'Կատարել վճարումը վերոնշյալ հաշվեհամարին և կցեք կտրոնը ստորև',
         receipt_label: 'Վճարման կտրոնի նկարը', attach: 'Կցել վճարման կտրոնը',
         drop_hint: 'Սեղմեք կամ քաշեք ֆայլը այստեղ', remove_file: 'Հեռացնել ֆայլը', preview_alt: 'Կտրոնի նախադիտում',
         submit: 'Գրանցվել Հիմա', sending: 'Ուղարկվում է...',
@@ -454,7 +454,7 @@
         terms: [
           ['1. Ընդհանուր դրույթներ', 'Գրանցվելով և վճարելով՝ դուք համաձայնում եք սույն պայմաններին։ ՖԼԵՔՍԻԶ ՕՆԼԱՅՆ ՍՏՈՒԴԻԱ-ն կազմակերպում է առցանց մարզումներ։'],
           ['2. Ծառայությունների մատուցում', 'Մարզումները անցկացվում են առցանց՝ ընտրված փաթեթի ժամկետի ընթացքում։ Մուտքը (Telegram-ի միջոցով) տրամադրվում է վճարումը հաստատելուց հետո։'],
-          ['3. Վճարում', 'Վճարումը կատարվում է նշված քարտին փոխանցմամբ։ Գրանցման ժամանակ պարտադիր է կցել վճարման կտրոնը։ Փաթեթի գինը ստուգեք ընտրելիս։'],
+          ['3. Վճարում', 'Վճարումը կատարվում է նշված հաշվեհամարին փոխանցմամբ։ Գրանցման ժամանակ պարտադիր է կցել վճարման կտրոնը։ Փաթեթի գինը ստուգեք ընտրելիս։'],
           ['4. Գումարի վերադարձ', 'Մուտքը տրամադրվելուց հետո վճարված գումարը, որպես կանոն, չի վերադարձվում։ Բացառիկ դեպքերը քննարկվում են անհատապես ադմինիստրացիայի հետ։'],
           ['5. Առողջություն և պատասխանատվություն', 'Մարզումները բժշկական խորհրդատվություն կամ բուժում չեն։ Սկսելուց առաջ խորհրդակցեք բժշկի հետ, հատկապես մեջքի հիվանդությունների, վնասվածքների կամ հղիության դեպքում։ Ցավի կամ վատ ինքնազգացողության դեպքում դադարեցրեք մարզումը։ Մասնակիցը պատասխանատու է իր առողջության համար։'],
           ['6. Անձնական տվյալներ', 'Ձեր անունը, հեռախոսահամարը, Telegram-ի տվյալները և վճարման կտրոնը օգտագործվում են միայն գրանցման և Ձեզ հետ կապ հաստատելու նպատակով և չեն փոխանցվում երրորդ անձանց։'],
@@ -485,8 +485,8 @@
         last_name: 'Фамилия', ph_last: 'Введите вашу фамилию',
         phone: 'Номер телефона', tg_user: 'Имя в Telegram (@username)', tg_phone: 'Номер телефона в Telegram',
         plan: 'Пакет', choose_plan: 'Выберите пакет',
-        pay_card: 'Карта для оплаты', bank: 'Арарат банк', copy: 'Копировать', copied: 'Скопировано ✓',
-        pay_note: 'Совершите оплату на указанную карту и прикрепите чек ниже',
+        pay_card: 'Номер счёта для оплаты', bank: 'Арарат банк', copy: 'Копировать', copied: 'Скопировано ✓',
+        pay_note: 'Совершите оплату на указанный номер счёта и прикрепите чек ниже',
         receipt_label: 'Фото чека об оплате', attach: 'Прикрепить чек об оплате',
         drop_hint: 'Нажмите или перетащите файл сюда', remove_file: 'Удалить файл', preview_alt: 'Предпросмотр чека',
         submit: 'Зарегистрироваться', sending: 'Отправка...',
@@ -502,7 +502,7 @@
         terms: [
           ['1. Общие положения', 'Регистрируясь и оплачивая, вы соглашаетесь с настоящими условиями. Flexiz Online Studio проводит онлайн-тренировки.'],
           ['2. Оказание услуг', 'Тренировки проходят онлайн в течение срока выбранного пакета. Доступ (через Telegram) предоставляется после подтверждения оплаты.'],
-          ['3. Оплата', 'Оплата производится переводом на указанную карту. При регистрации необходимо прикрепить чек об оплате. Стоимость пакета уточняйте при выборе.'],
+          ['3. Оплата', 'Оплата производится переводом на указанный номер счёта. При регистрации необходимо прикрепить чек об оплате. Стоимость пакета уточняйте при выборе.'],
           ['4. Возврат средств', 'После предоставления доступа оплаченная сумма, как правило, не возвращается. Исключительные случаи рассматриваются индивидуально с администрацией.'],
           ['5. Здоровье и ответственность', 'Тренировки не являются медицинской консультацией или лечением. Перед началом проконсультируйтесь с врачом, особенно при заболеваниях спины, травмах или беременности. При боли или плохом самочувствии прекратите тренировку. Участник несёт ответственность за своё здоровье.'],
           ['6. Персональные данные', 'Ваше имя, номер телефона, данные Telegram и чек об оплате используются только для регистрации и связи с вами и не передаются третьим лицам.'],
@@ -533,8 +533,8 @@
         last_name: 'Last name', ph_last: 'Enter your last name',
         phone: 'Phone number', tg_user: 'Telegram username (@username)', tg_phone: 'Telegram phone number',
         plan: 'Plan', choose_plan: 'Choose a plan',
-        pay_card: 'Payment card', bank: 'Ararat Bank', copy: 'Copy', copied: 'Copied ✓',
-        pay_note: 'Make the payment to the card above and attach the receipt below',
+        pay_card: 'Payment account number', bank: 'Ararat Bank', copy: 'Copy', copied: 'Copied ✓',
+        pay_note: 'Make the payment to the account number above and attach the receipt below',
         receipt_label: 'Payment receipt photo', attach: 'Attach payment receipt',
         drop_hint: 'Click or drag the file here', remove_file: 'Remove file', preview_alt: 'Receipt preview',
         submit: 'Register Now', sending: 'Sending...',
@@ -550,7 +550,7 @@
         terms: [
           ['1. General', 'By registering and paying, you agree to these terms. Flexiz Online Studio provides online workouts.'],
           ['2. Services', 'Workouts take place online for the duration of the selected plan. Access (via Telegram) is granted once your payment is confirmed.'],
-          ['3. Payment', 'Payment is made by transfer to the card shown. A payment receipt must be attached when registering. Please check the plan price when selecting it.'],
+          ['3. Payment', 'Payment is made by transfer to the account number shown. A payment receipt must be attached when registering. Please check the plan price when selecting it.'],
           ['4. Refunds', 'Once access has been granted, the amount paid is generally non-refundable. Exceptional cases are reviewed individually with the administration.'],
           ['5. Health & responsibility', 'Workouts are not medical advice or treatment. Consult a doctor before starting, especially if you have back problems, injuries or are pregnant. Stop exercising if you feel pain or unwell. Each participant is responsible for their own health.'],
           ['6. Personal data', 'Your name, phone number, Telegram details and payment receipt are used only for registration and to contact you, and are not shared with third parties.'],
@@ -633,7 +633,7 @@
       document.querySelectorAll('.lang-btn').forEach((b) => b.addEventListener('click', () => setLang(b.dataset.lang)));
       setLang(lang);
 
-      // ---------- Copy card number ----------
+      // ---------- Copy account number ----------
       const CARD_NUMBER = '1510049690946900';
       const copyCardBtn = $('copyCardBtn');
       const copyBtnText = $('copyBtnText');
